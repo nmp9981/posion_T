@@ -15,6 +15,8 @@ public class GameManager : MonoBehaviour
     SoundManager _soundManager = new SoundManager();
     ResourceManager _resourceManager = new ResourceManager();
     UIManager _uIManager = new UIManager();
+    
+    GameObject[] _Tower;
 
     int _maxPoint = 0;
     int _nowpoint = 0;
@@ -28,8 +30,8 @@ public class GameManager : MonoBehaviour
     public static SoundManager Sound { get { return Instance._soundManager; } }
 
     public static ResourceManager Resource { get { return Instance._resourceManager; } }
-
     public static UIManager UI { get { return Instance._uIManager; }}
+    public static GameObject[] Tower { get { return Instance._Tower; } }
 
     public static int MaxPoint        {get{ return Instance._maxPoint; } set{ Instance._maxPoint = value; } }
     public static int NowPoint        {get{ return Instance._nowpoint; } set{ Instance._maxPoint = value; } }
@@ -54,8 +56,14 @@ public class GameManager : MonoBehaviour
             }
             DontDestroyOnLoad(gm);
             _instance = gm.GetComponent<GameManager>();
-            Sound.init();
-            UI.init();
+            _instance._soundManager.init();
+            _instance._uIManager.init();
+
+            _instance._Tower = new GameObject[3];
+            _instance._Tower[(int)Define.Property.Fire] = Resources.Load<GameObject>($"Prefabs/Tower/Tower{(int)Define.Property.Fire}");
+            _instance._Tower[(int)Define.Property.Water] = Resources.Load<GameObject>($"Prefabs/Tower/Tower{(int)Define.Property.Water}");
+            _instance._Tower[(int)Define.Property.Grass] = Resources.Load<GameObject>($"Prefabs/Tower/Tower{(int)Define.Property.Grass}");
+
         }
     }
 
