@@ -10,7 +10,13 @@ public class Monster_Controller : MonoBehaviour
     float DefaultSpead = 0.01f;
     public float xpos, ypos;
     float LRflag = 1;
+    public Vector3[] direction = new Vector3[9];
 
+    public float horizon = 1.5f;
+    public float yzero = 0.1f;
+    public float yEnd = 3.0f;
+
+    int checkBox = 0;
     public float dist;
     [SerializeField]
     Define.Property _property = Define.Property.Fire;
@@ -43,25 +49,50 @@ public class Monster_Controller : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D other)
     {
+       
         //투사체에 맞음
-        if (other.gameObject.GetComponent<Projectile_Controller>().ProjProp() == _property)//투사체 속성 = 몹의 속성
+        if (other.gameObject.tag == "Arrow")
         {
             Invoke("beAttacked", 0f);
+        }
+        
+    }
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        //이정표와 충돌
+        if (other.gameObject.tag == "Dir")
+        {
+            checkBox++;
         }
     }
 
     public void Dead()  //죽음
     {
 
-        //GameManager.Resource.MonsterMove -= this.ThisMove;
+        GameManager.Resource.MonsterMove -= this.ThisMove;
         GameManager.Resource.Monster_List.Remove(this.gameObject);
     }
 
     // Start is called before the first frame update
+    void Awake()
+    {
+        direction[0] = GameObject.Find("dir1").transform.position;
+        direction[1] = GameObject.Find("dir2").transform.position;
+        direction[2] = GameObject.Find("dir3").transform.position;
+        direction[3] = GameObject.Find("dir4").transform.position;
+        direction[4] = GameObject.Find("dir5").transform.position;
+        direction[5] = GameObject.Find("dir6").transform.position;
+        direction[6] = GameObject.Find("dir7").transform.position;
+        direction[7] = GameObject.Find("dir8").transform.position;
+        direction[8] = GameObject.Find("dir9").transform.position;
+
+    }
     void Start()
     {
-        GameManager.Resource.MonsterMove -= this.ThisMove;
+        Debug.Log(direction[1]);
+        //GameManager.Resource.MonsterMove -= this.ThisMove;
         GameManager.Resource.MonsterMove += this.ThisMove;
+
     }
 
     float RealSpead(float plusMin)//실제 속도
@@ -72,23 +103,26 @@ public class Monster_Controller : MonoBehaviour
     void ThisMove()
     {
         xpos = this.gameObject.transform.position.x; ypos = this.gameObject.transform.position.y;
+        this.transform.position = Vector3.MoveTowards(this.transform.position, direction[checkBox], this.DefaultSpead);
 
-        if (Mathf.Abs(xpos) <= 1.51f && (Mathf.Abs(ypos) >= 3 || Mathf.Abs(ypos) <= 0.1f))//오른쪽으로
+        /*
+        if (Mathf.Abs(xpos) <= horizon && (Mathf.Abs(ypos) >= yEnd || Mathf.Abs(ypos) <= yzero))//오른쪽으로
         {
             LRflag = 1;
             this.gameObject.transform.Translate(this.DefaultSpead * LRflag, 0, 0);
         }
-        else if (Mathf.Abs(xpos) <= 1.51f && Mathf.Abs(ypos) <= 1.55f && Mathf.Abs(ypos) >= 1.45f)//왼쪽으로
+        else if (Mathf.Abs(xpos) <= horizon && Mathf.Abs(ypos) <= horizon+0.05f && Mathf.Abs(ypos) >= horizon-0.05f)//왼쪽으로
         {
             LRflag = -1;
             this.gameObject.transform.Translate(this.DefaultSpead * LRflag, 0, 0);
         }
         else
         {
-            if (LRflag == 1) this.gameObject.transform.position = new Vector3(1.5f, ypos, 0f);
-            else if (LRflag == -1) this.gameObject.transform.position = new Vector3(-1.5f, ypos, 0f);
+            if (LRflag == 1) this.gameObject.transform.position = new Vector3(horizon, ypos, 0f);
+            else if (LRflag == -1) this.gameObject.transform.position = new Vector3(-horizon, ypos, 0f);
             this.gameObject.transform.Translate(0, -this.DefaultSpead, 0);//아래
         }
+        */
         this.dist += this.DefaultSpead;
 
     }

@@ -4,14 +4,16 @@ using UnityEngine;
 
 public class StartPoint : MonoBehaviour
 {
-    float MonsterToMonster = 0.5f;
+    float MonsterToMonster = 2.0f;
     bool _endWave = true;
     int wave;
     public bool EndWave { get { return _endWave; } set { _endWave = value; } }
     GameObject[] Monster = new GameObject[3];
+    GameObject startPosition;
 
     private void Start()
     {
+        startPosition = GameObject.Find("ReMonster");
         for (int i = 0; i < 3; i++) {
             Monster[i] = Resources.Load<GameObject>($"Prefabs/Monster/Monster{i}");
         }
@@ -21,8 +23,9 @@ public class StartPoint : MonoBehaviour
     void MonsterRegen()
     {
         int MonsterIDX = Random.Range(0, 3);
-        Instantiate(Monster[MonsterIDX]);
-
+        
+        GameObject mob = Instantiate(Monster[MonsterIDX]);
+        mob.transform.position = startPosition.transform.position;
     }
 
     IEnumerator MonsterWave()

@@ -7,6 +7,8 @@ public class Projectile_Controller : MonoBehaviour
     float _proj_Dmg;
     float _proj_Spead;
     float _proj_Slow;
+
+    float speed = 0.01f;
     Vector3 point;
 
     [SerializeField]
@@ -38,9 +40,17 @@ public class Projectile_Controller : MonoBehaviour
         return _proj_Slow;
     }
 
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        if(other.gameObject.tag == "Mob")//¸÷ÀÌ¶û ´êÀ¸¸é ¾ø¾îÁü
+        {
+            Destroy(other.gameObject);
+            Destroy(this.gameObject);
+        }
+    }
     public void Fly()
     {
-        this.transform.position = Vector3.MoveTowards(this.transform.position, point, Time.deltaTime);
+        this.transform.position = Vector3.MoveTowards(this.transform.position, point, speed);
     }
 
     // Start is called before the first frame update

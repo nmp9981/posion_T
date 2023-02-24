@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4245756547666148863}
   - component: {fileID: 4018324617796513586}
   - component: {fileID: 2226281642992726035}
+  - component: {fileID: 1167657624027086077}
   m_Layer: 0
   m_Name: Tower1
   m_TagString: Untagged
@@ -28,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 4245756547666148862}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 3.74, y: 0.85, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -98,6 +99,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46af849f1adb23e4b92c6a3b820f428e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  InAreaMonster: []
+  arrow: {fileID: 6614539824220775597, guid: 0fad8125e4d6f224a86a7a7bf0458374, type: 3}
   property: 1
 --- !u!61 &2226281642992726035
 BoxCollider2D:
@@ -123,5 +126,26 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 3, y: 3}
   m_EdgeRadius: 0
+--- !u!50 &1167657624027086077
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4245756547666148862}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
