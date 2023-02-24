@@ -11,6 +11,9 @@ public class GameManager : MonoBehaviour
     SoundManager _soundManager = new SoundManager();
 
 
+    GameObject _player = new GameObject();
+    public GameObject Player { get { return _instance._player; } }
+
     public static GameManager Instance { get { init(); return _instance; } }
     public static InputManager Input { get { return Instance._inputManager; } }
     public static DataManager Data { get { return Instance._dataManager; } }
@@ -33,7 +36,7 @@ public class GameManager : MonoBehaviour
             _instance = gm.GetComponent<GameManager>();
             Sound.init();
 
-
+            _instance._player = new GameObject();//Instantiate(Resources.Load<GameObject>(""));
         }
     }
 
