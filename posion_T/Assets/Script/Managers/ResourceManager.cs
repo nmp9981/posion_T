@@ -18,7 +18,7 @@ public class ResourceManager
 
     public void OnUpdate()
     {
-        //MonsterMove.Invoke();
+        MonsterMove.Invoke();
     }
 
     // Start is called before the first frame update

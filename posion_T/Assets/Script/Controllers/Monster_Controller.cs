@@ -5,16 +5,24 @@ using UnityEngine;
 public class Monster_Controller : MonoBehaviour
 {
     [SerializeField]
-    bool Live;
+    bool _live;
     float HP = 10;
     float DefaultSpead = 0.01f;
     float xpos,ypos;
     float LRflag = 1;
 
+
+
+    [SerializeField]
+    Define.Property _property = Define.Property.Fire;
+    public Define.Property Property { get { return _property; } set { _property = value; } }
     public void beAttacked(float DMG)   // 공격 당함// 투사체가 this.transform.gameObject와 충돌했을 때 사용
     {
         this.HP -=DMG;
     }
+
+
+    public bool Live { get { return _live; } set { _live = value; } }
 
     void OnCollisionEnter2D(Collision2D other)
     {
@@ -23,7 +31,8 @@ public class Monster_Controller : MonoBehaviour
 
     public void Dead()  //죽음
     {
-        
+
+        GameManager.Resource.MonsterMove -= this.ThisMove;
     }
 
     // Start is called before the first frame update
@@ -61,6 +70,8 @@ public class Monster_Controller : MonoBehaviour
 
         
     }
+
+
 
     // Update is called once per frame
     void Update()

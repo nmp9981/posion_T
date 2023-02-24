@@ -17,6 +17,7 @@ public class Define
         Fire,
         Water,
         Grass,
+        None,
         MaxCound
     }
 

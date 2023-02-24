@@ -17,11 +17,15 @@ public class Projectile_Controller : MonoBehaviour
     public float Proj_Dmg { get { return _proj_Dmg; } set { _proj_Dmg = value; } }
     public float Proj_Spead { get { return _proj_Spead; } set { _proj_Spead = value; } }
 
+
     float GetSome()
     {
         return 1.0f;
     }
-
+    public Define.Property ProjProp()
+    {
+        return property;
+    }
 
     public float DMG(float some)
     {
@@ -33,7 +37,10 @@ public class Projectile_Controller : MonoBehaviour
         return _proj_Slow;
     }
 
+    public void Fly(Vector3 point)//point == 단위백터
+    {
 
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -44,6 +51,6 @@ public class Projectile_Controller : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-           
+        //Fly();
     }
 }

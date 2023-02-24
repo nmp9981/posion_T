@@ -4,15 +4,19 @@ using UnityEngine;
 
 public class EndPoint : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        
-    }
+        Monster_Controller endOBJ = collision.GetComponent<Monster_Controller>();
+        if (endOBJ.Live)
+        {
+        //    GameManager.Life -= 1;
+        }
+        GameManager.Life -= 1;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+
+        collision.gameObject.GetComponent<Monster_Controller>().Dead();
+        //Destroy(collision.gameObject.GetComponent<Monster_Controller>());
+        Destroy(collision.gameObject);
+        GameManager.UI.PointUpdate();
     }
 }

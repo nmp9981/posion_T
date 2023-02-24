@@ -4,25 +4,51 @@ using UnityEngine;
 
 public class StartPoint : MonoBehaviour
 {
-    float MonsterToMonster = 0.2f;
-
-    List<int> Wave = new List<int>(new int[] { 10,15,20});
+    float MonsterToMonster = 0.5f;
+    bool _endWave = true;
+    int wave;
+    public bool EndWave { get { return _endWave; } set { _endWave = value; } }
+    GameObject[] Monster = new GameObject[3];
 
     private void Start()
     {
+        for (int i = 0; i < 3; i++) {
+            Monster[i] = Resources.Load<GameObject>($"Prefabs/Monster/Monster{i}");
+        }
+        StartCoroutine(MonsterWave());
 
     }
     void MonsterRegen()
     {
+        int MonsterIDX = Random.Range(0, 3);
+        Instantiate(Monster[MonsterIDX]);
 
     }
 
     IEnumerator MonsterWave()
     {
-        yield return new WaitForSeconds(0.2f);//MonsterToMonster);
-        MonsterRegen();
+        while (true)
+        {
+            
+            if (EndWave)
+            {
+                StartCoroutine(EndWaveWait());
+                EndWave = false;
+            }
+
+            MonsterRegen();
+            yield return new WaitForSeconds(MonsterToMonster);
+
+        }
 
     }
+    IEnumerator EndWaveWait()
+    {
+        yield return new WaitForSeconds(5.0f);//MonsterToMonster);
+
+    }
+
+
 
 
 
