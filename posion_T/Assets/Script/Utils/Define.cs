@@ -12,4 +12,12 @@ public class Define
         MaxCound
     }
 
+    public enum Property
+    {
+        Fire,
+        Water,
+        Grass,
+        MaxCound
+    }
+
 }

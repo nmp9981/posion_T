@@ -4,32 +4,52 @@ using UnityEngine;
 
 public class T_Controller : MonoBehaviour
 {
+    List<GameObject> InAreaMonster;
+    GameObject Projectile;
+    [SerializeField]
+    Define.Property property = Define.Property.Fire;
 
-    private void move()
-    {
-        if (Input.GetKeyDown(KeyCode.W))
-        {
-            this.transform.position += new Vector3(0, 0.1f, 0);
-        }
-        else if (Input.GetKeyDown(KeyCode.S))
-        {
-
-        }
-        else if (Input.GetKeyDown(KeyCode.A))
-        {
-
-        }
-        else if (Input.GetKeyDown(KeyCode.D))
-        {
-
-        }
-    }
     // Start is called before the first frame update
     void Start()
     {
-        GameManager.Input.KeyAction -= move;
+        InAreaMonster = new List<GameObject>();
+        Projectile = Resources.Load<GameObject>($"Prefabs/Projectile/Projectile{(int)property}");
+        if (Projectile != null)
+        {
+            Instantiate(Projectile,transform);
+        }
+        
 
-        GameManager.Input.KeyAction += move;
+
+
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        Monster_Controller M = collision.GetComponent<Monster_Controller>();
+        if (M != null )//&& M.)M.Live -> 이게 퍼블릭 처리가 안되어있음
+        {
+            InAreaMonster.Add(collision.gameObject);
+
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+
+        //몬스터 인덱스 관리가 필요함
+
+        Monster_Controller M = collision.GetComponent<Monster_Controller>();
+        if (M != null)//&& M.)M.Live -> 이게 퍼블릭 처리가 안되어있음
+        {
+            InAreaMonster.Remove(M.gameObject);
+
+        }
+    }
+    
+    void Attack()
+    {
+
     }
 
     // Update is called once per frame

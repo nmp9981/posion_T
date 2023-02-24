@@ -9,7 +9,7 @@ public class InputManager
 
     public void OnUpdate()
     {
-        KeyAction.Invoke();
+        //KeyAction.Invoke();
     }
 
 }
