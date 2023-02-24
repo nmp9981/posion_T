@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
     DataManager _dataManager = new DataManager();
     InputManager _inputManager = new InputManager();
     SoundManager _soundManager = new SoundManager();
-
+    ResourceManager _resourceManager = new ResourceManager();
 
     GameObject _player = new GameObject();
     public GameObject Player { get { return _instance._player; } }
@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour
     public static DataManager Data { get { return Instance._dataManager; } }
     public static SoundManager Sound { get { return Instance._soundManager; } }
 
-
+    public static ResourceManager Resource { get { return Instance._resourceManager; } }
 
     static void init()
     {
@@ -49,6 +49,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Input.OnUpdate();   
+        Input.OnUpdate();
+        Resource.OnUpdate();
     }
 }
