@@ -7,7 +7,8 @@ public class Projectile_Controller : MonoBehaviour
     float _proj_Dmg;
     float _proj_Spead;
     float _proj_Slow;
-    
+    Vector3 point;
+
     [SerializeField]
     Define.Property property = Define.Property.Fire;
 
@@ -37,20 +38,22 @@ public class Projectile_Controller : MonoBehaviour
         return _proj_Slow;
     }
 
-    public void Fly(Vector3 point)//point == 단위백터
+    public void Fly()
     {
-
+        this.transform.position = Vector3.MoveTowards(this.transform.position, point, Time.deltaTime);
     }
 
     // Start is called before the first frame update
     void Start()
     {
         Target = new GameManager();
+        point = gameObject.GetComponent<JudgeAttack>().NearestMonster();
+        gameObject.transform.LookAt(point);
     }
 
     // Update is called once per frame
     void Update()
     {
-        //Fly();
+        Fly();
     }
 }

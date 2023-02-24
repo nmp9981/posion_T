@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     SoundManager _soundManager = new SoundManager();
     ResourceManager _resourceManager = new ResourceManager();
     UIManager _uIManager = new UIManager();
+
     int _maxPoint = 0;
     int _nowpoint = 0;
     int _thiswavenum = 1;
@@ -61,7 +62,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //init();
+        init();
     }
 
     // Update is called once per frame

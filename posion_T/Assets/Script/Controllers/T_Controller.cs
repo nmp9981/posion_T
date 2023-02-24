@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class T_Controller : MonoBehaviour
 {
-    List<GameObject> InAreaMonster;
+    protected List<Monster_Controller> InAreaMonster;
     GameObject Projectile;
     [SerializeField]
     Define.Property property = Define.Property.Fire;
@@ -12,7 +12,7 @@ public class T_Controller : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        InAreaMonster = new List<GameObject>();
+        InAreaMonster = new List<Monster_Controller>();
         Projectile = Resources.Load<GameObject>($"Prefabs/Projectile/Projectile{(int)property}");
         if (Projectile != null)
         {
@@ -29,7 +29,7 @@ public class T_Controller : MonoBehaviour
         Monster_Controller M = collision.GetComponent<Monster_Controller>();
         if (M != null )//&& M.)M.Live -> 이게 퍼블릭 처리가 안되어있음
         {
-            InAreaMonster.Add(collision.gameObject);
+            InAreaMonster.Add(M);
 
         }
     }
@@ -42,7 +42,7 @@ public class T_Controller : MonoBehaviour
         Monster_Controller M = collision.GetComponent<Monster_Controller>();
         if (M != null)//&& M.)M.Live -> 이게 퍼블릭 처리가 안되어있음
         {
-            InAreaMonster.Remove(M.gameObject);
+            InAreaMonster.Remove(M);
 
         }
     }
