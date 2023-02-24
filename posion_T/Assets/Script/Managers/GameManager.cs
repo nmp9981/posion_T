@@ -36,7 +36,7 @@ public class GameManager : MonoBehaviour
             _instance = gm.GetComponent<GameManager>();
             Sound.init();
 
-            _instance._player = new GameObject();//Instantiate(Resources.Load<GameObject>(""));
+            //_instance._player = new GameObject();//Instantiate(Resources.Load<GameObject>(""));
         }
     }
 
