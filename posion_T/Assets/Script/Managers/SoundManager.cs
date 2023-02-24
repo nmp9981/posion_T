@@ -20,7 +20,7 @@ public class SoundManager
             for (int i = 0; i < (int)Define.Sound.MaxCound; i++)
             {
                 GameObject sound = new GameObject { name = soundNames[i]};
-                
+                audioSource[i] = sound.AddComponent<AudioSource>();
                 sound.transform.parent = Sound.transform;
             }
             
