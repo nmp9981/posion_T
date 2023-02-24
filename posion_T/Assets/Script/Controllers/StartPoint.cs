@@ -25,6 +25,7 @@ public class StartPoint : MonoBehaviour
         int MonsterIDX = Random.Range(0, 3);
         
         GameObject mob = Instantiate(Monster[MonsterIDX]);
+
         mob.transform.position = startPosition.transform.position;
     }
 

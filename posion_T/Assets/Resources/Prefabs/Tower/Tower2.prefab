@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1932668821211918227}
   - component: {fileID: 1932668821211918226}
-  - component: {fileID: 5946108948997638171}
   - component: {fileID: 6668218218423681316}
   - component: {fileID: 7674917120839616970}
+  - component: {fileID: -5851887652030481341}
   m_Layer: 0
   m_Name: Tower2
   m_TagString: Untagged
@@ -87,21 +87,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &5946108948997638171
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1932668821211918225}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 46af849f1adb23e4b92c6a3b820f428e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  InAreaMonster: []
-  arrow: {fileID: 6460690687070813163, guid: 47592d8af1d65924c98fa89d1e973a0d, type: 3}
-  property: 2
 --- !u!61 &6668218218423681316
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -112,7 +97,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -149,3 +134,18 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &-5851887652030481341
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1932668821211918225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46af849f1adb23e4b92c6a3b820f428e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  InAreaMonster: []
+  arrow: {fileID: 6460690687070813163, guid: 47592d8af1d65924c98fa89d1e973a0d, type: 3}
+  property: 2

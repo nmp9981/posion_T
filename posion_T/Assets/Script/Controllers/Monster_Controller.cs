@@ -5,8 +5,9 @@ using UnityEngine;
 public class Monster_Controller : MonoBehaviour
 {
     [SerializeField]
-    bool _live;
+    bool _live = true;
     float HP = 10;
+    float damage = 5;
     float DefaultSpead = 0.01f;
     public float xpos, ypos;
     float LRflag = 1;
@@ -49,11 +50,11 @@ public class Monster_Controller : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D other)
     {
-       
         //투사체에 맞음
         if (other.gameObject.tag == "Arrow")
         {
-            Invoke("beAttacked", 0f);
+            beAttacked(damage, other.gameObject.GetComponent<Projectile_Controller>().ProjProp());
+           
         }
         
     }
@@ -71,6 +72,7 @@ public class Monster_Controller : MonoBehaviour
 
         GameManager.Resource.MonsterMove -= this.ThisMove;
         GameManager.Resource.Monster_List.Remove(this.gameObject);
+        Destroy(this.gameObject);
     }
 
     // Start is called before the first frame update
@@ -89,8 +91,7 @@ public class Monster_Controller : MonoBehaviour
     }
     void Start()
     {
-        Debug.Log(direction[1]);
-        //GameManager.Resource.MonsterMove -= this.ThisMove;
+        GameManager.Resource.MonsterMove -= this.ThisMove;
         GameManager.Resource.MonsterMove += this.ThisMove;
 
     }
@@ -104,7 +105,7 @@ public class Monster_Controller : MonoBehaviour
     {
         xpos = this.gameObject.transform.position.x; ypos = this.gameObject.transform.position.y;
         this.transform.position = Vector3.MoveTowards(this.transform.position, direction[checkBox], this.DefaultSpead);
-
+        
         /*
         if (Mathf.Abs(xpos) <= horizon && (Mathf.Abs(ypos) >= yEnd || Mathf.Abs(ypos) <= yzero))//오른쪽으로
         {
@@ -127,6 +128,9 @@ public class Monster_Controller : MonoBehaviour
 
     }
 
-
+    private void Update()
+    {
+        ThisMove();
+    }
 
 }

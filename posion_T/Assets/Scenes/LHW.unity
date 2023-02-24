@@ -932,6 +932,31 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &327468268 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 123128996970092525, guid: 0dddde0aa0532e04aa5ff80a51bb8fcc, type: 3}
+  m_PrefabInstance: {fileID: 1087258841}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &327468274
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 327468268}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c1e4214d9557a941b47de7eb2de80f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  InAreaMonster: []
+  xpos: 0
+  ypos: 0
+  arrowSpeed: 0.7
+  Projectile: {fileID: 0}
+  arrow: {fileID: 7738568975469457607, guid: 2de92afb902097c40958528cb887b925, type: 3}
+  isDelay: 0
+  property: 0
 --- !u!1 &437209572
 GameObject:
   m_ObjectHideFlags: 0
@@ -1341,7 +1366,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   InAreaMonster: []
+  xpos: 0
+  ypos: 0
+  arrowSpeed: 0.7
+  Projectile: {fileID: 0}
   arrow: {fileID: 747128397}
+  isDelay: 0
   property: 0
 --- !u!4 &747128399
 Transform:
@@ -1681,10 +1711,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1026408826867853327, guid: 0dddde0aa0532e04aa5ff80a51bb8fcc, type: 3}
-      propertyPath: arrow
-      value: 
-      objectReference: {fileID: 7738568975469457607, guid: 2de92afb902097c40958528cb887b925, type: 3}
     - target: {fileID: 8304022552733480303, guid: 0dddde0aa0532e04aa5ff80a51bb8fcc, type: 3}
       propertyPath: m_Size.x
       value: 1
@@ -1693,7 +1719,8 @@ PrefabInstance:
       propertyPath: m_Size.y
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 0dddde0aa0532e04aa5ff80a51bb8fcc, type: 3}
 --- !u!1 &1249659071
 GameObject:
@@ -2217,10 +2244,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5946108948997638171, guid: 87177ea98863d9b47bb238608404a588, type: 3}
-      propertyPath: arrow
-      value: 
-      objectReference: {fileID: 6460690687070813163, guid: 47592d8af1d65924c98fa89d1e973a0d, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 87177ea98863d9b47bb238608404a588, type: 3}
 --- !u!1 &1690545155

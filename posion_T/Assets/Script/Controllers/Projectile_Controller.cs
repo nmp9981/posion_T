@@ -44,20 +44,20 @@ public class Projectile_Controller : MonoBehaviour
     {
         if(other.gameObject.tag == "Mob")//¸÷ÀÌ¶û ´êÀ¸¸é ¾ø¾îÁü
         {
-            Destroy(other.gameObject);
+            Debug.Log("´ê¾Ò´Ù");
             Destroy(this.gameObject);
         }
     }
+    
     public void Fly()
     {
         this.transform.position = Vector3.MoveTowards(this.transform.position, point, speed);
     }
 
     // Start is called before the first frame update
-    void Start()
+    public void Shoot(Vector3 point)
     {
         Target = new GameManager();
-        point = gameObject.GetComponent<JudgeAttack>().NearestMonster();
         gameObject.transform.LookAt(point);
     }
 
