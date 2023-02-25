@@ -45,21 +45,20 @@ public class Projectile_Controller : MonoBehaviour
         return _proj_Slow;
     }
 
-    private void OnCollisionEnter2D(Collision2D other)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(other.gameObject.tag == "Mob")//¸÷ÀÌ¶û ´êÀ¸¸é ¾ø¾îÁü
+        if (collision.gameObject.tag == "Mob")//¸÷ÀÌ¶û ´êÀ¸¸é ¾ø¾îÁü
         {
             Destroy(this.gameObject);
         }
     }
+    
     public void setTarget(Vector3 point)
     {
         Tpoint = point;
     }
     public void Fly()
     {
-        //GetComponent<Rigidbody2D>().AddForce(Tpoint);
-        //transform.position = Vector3.MoveTowards(this.transform.position, Tpoint, speed);
         GetComponent<Rigidbody2D>().velocity = (Vector2)(Tpoint - this.transform.position).normalized * projSpeed;
     }
 

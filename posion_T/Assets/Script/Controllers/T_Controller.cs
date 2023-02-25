@@ -117,9 +117,10 @@ public class T_Controller : MonoBehaviour
                 go.transform.position = this.transform.position;
                 Vector3 point = NearestMonster();
                 go.GetComponent<Projectile_Controller>().Shoot(point, this.transform.position);
+                GameManager.Sound.Play("Effect/button1");
                 go.GetComponent<Projectile_Controller>().setTarget(FindTarget(inRangeMonster).transform.position);
                 Destroy(go, 2f);
-                yield return new WaitForSecondsRealtime(arrowSpeed);
+                yield return new WaitForSecondsRealtime(GameManager.SHOOTSPEED[GameManager.LV[(int)property]]);
                 isDelay = false;
             }
             else

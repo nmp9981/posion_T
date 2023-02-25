@@ -6,8 +6,9 @@ using UnityEngine;
 public class ResourceManager 
 {
     public Action MonsterMove = null;
-    public List<GameObject> Monster_List = new List<GameObject>();
-
+    
+    public List<GameObject> _monster_List = new List<GameObject>();
+    public List<GameObject> Monster_List { get { return _monster_List; }set { _monster_List = value; } }
 
 
     int idx;

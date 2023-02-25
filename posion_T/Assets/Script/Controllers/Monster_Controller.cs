@@ -6,31 +6,35 @@ public class Monster_Controller : MonoBehaviour
 {
     [SerializeField]
     bool _live = true;
-    float HP = 10;
-    float damage = 5;
+    float _HP = 10;
     float DefaultSpead = 0.01f;
     public float xpos, ypos;
-    float LRflag = 1;
     public Vector3[] direction = new Vector3[9];
 
     public float horizon = 1.5f;
     public float yzero = 0.1f;
-    public float yEnd = 3.0f;
-
+    public float yEnd = 3.0f;   
+    public bool Live { get { return _live; } set { _live = value; } }
     public float LifeTime;
-
     int checkBox = 0;
     public float dist;
     [SerializeField]
     Define.Property _property = Define.Property.Fire;
     public Define.Property Property { get { return _property; } set { _property = value; } }
-    public void beAttacked(float DMG, Define.Property Property) //데미지, 투사체 속성
+
+    public float HP { get { return _HP;}set { _HP = value; } }
+
+    public void beAttacked( Define.Property Property) //데미지, 투사체 속성
     {
+        float DMG = GameManager.DMGTABLE[GameManager.LV[(int)Property]];
+        
+
         //속성 검사
         if ((this._property == Define.Property.Fire && Property == Define.Property.Water) ||
             ((this._property == Define.Property.Water && Property == Define.Property.Grass)) ||
             (this._property == Define.Property.Grass && Property == Define.Property.Fire))//증폭
         {
+            
             DMG *= 1.5f;
         }
         if ((this._property == Define.Property.Fire && Property == Define.Property.Grass) ||
@@ -41,39 +45,36 @@ public class Monster_Controller : MonoBehaviour
         }
 
         this.HP -= DMG;
-
+        Debug.Log("HP " + HP);
         if (this.HP <= 0)//사망
         {
+            _live = false;
             Invoke("Dead", 0);
         }
     }
 
-    public bool Live { get { return _live; } set { _live = value; } }
-
-    void OnCollisionEnter2D(Collision2D other)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         //투사체에 맞음
-        if (other.gameObject.tag == "Arrow")
+        if (collision.gameObject.tag == "Arrow")
         {
-            beAttacked(damage, other.gameObject.GetComponent<Projectile_Controller>().ProjProp());
-           
+            beAttacked(collision.gameObject.GetComponent<Projectile_Controller>().ProjProp());
+
         }
-        
-    }
-    private void OnTriggerEnter2D(Collider2D other)
-    {
         //이정표와 충돌
-        if (other.gameObject.tag == "Dir")
+        if (collision.gameObject.tag == "Dir")
         {
             checkBox++;
         }
     }
+    
+    
 
     public void Dead()  //죽음
     {
 
         GameManager.Resource.MonsterMove -= this.ThisMove;
-        GameManager.Resource.Monster_List.Remove(this.gameObject);
+        //GameManager.Resource.Monster_List.Remove(this.gameObject);
         Destroy(this.gameObject);
     }
 
@@ -95,6 +96,7 @@ public class Monster_Controller : MonoBehaviour
     {
         GameManager.Resource.MonsterMove -= this.ThisMove;
         GameManager.Resource.MonsterMove += this.ThisMove;
+        HP = GameManager.MonsterHP;
 
     }
 

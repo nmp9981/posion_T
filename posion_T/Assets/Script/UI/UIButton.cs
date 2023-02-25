@@ -15,7 +15,7 @@ public class UIButton : MonoBehaviour
     private void Awake()
     {
 
-        Debug.Log("????");
+        //Debug.Log("????");
         BGMSlider   = GameObject.Find("BGMSlider").GetComponent<Slider>();
         EffectSlider    = GameObject.Find("EffectSlider").GetComponent<Slider>();
 
@@ -27,7 +27,7 @@ public class UIButton : MonoBehaviour
 
         GameManager.Sound.SetAudioSourceVolume(BGMSlider.value, Define.Sound.BGM);
         GameManager.Sound.SetAudioSourceVolume(EffectSlider.value, Define.Sound.Effect);
-
+        GameManager.Sound.Play("BGM/GAMEPLAY",Define.Sound.BGM);
         UI.SetActive(false);
 
 

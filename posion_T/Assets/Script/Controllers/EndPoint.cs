@@ -11,10 +11,9 @@ public class EndPoint : MonoBehaviour
             Monster_Controller endOBJ = collision.GetComponent<Monster_Controller>();
             if (endOBJ.Live)
             {
-                //    GameManager.Life -= 1;
+                GameManager.Life -= 1;
             }
-            GameManager.Life -= 1;
-
+            
 
             collision.gameObject.GetComponent<Monster_Controller>().Dead();
             //Destroy(collision.gameObject.GetComponent<Monster_Controller>());

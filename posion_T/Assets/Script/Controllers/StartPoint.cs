@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class StartPoint : MonoBehaviour
 {
-    public float MonsterToMonster = 2.0f;
+    float MonsterToMonster = 1.0f;
+    float WaveToWave = 7.0f;
+
     bool _endWave = true;
-    int wave;
-    public bool EndWave { get { return _endWave; } set { _endWave = value; } }
+    int thisWaveNum = 0;
     GameObject[] Monster = new GameObject[3];
     GameObject startPosition;
 
@@ -26,6 +27,7 @@ public class StartPoint : MonoBehaviour
         
         GameObject mob = Instantiate(Monster[MonsterIDX]);
 
+
         mob.transform.position = startPosition.transform.position;
     }
 
@@ -33,24 +35,30 @@ public class StartPoint : MonoBehaviour
     {
         while (true)
         {
-            
-            if (EndWave)
-            {
-                StartCoroutine(EndWaveWait());
-                EndWave = false;
-            }
-
             MonsterRegen();
-            yield return new WaitForSeconds(MonsterToMonster);
+            thisWaveNum += 1;
 
+            if (thisWaveNum >= GameManager.Wave * 2)
+            {
+                Debug.Log("WaveUP");
+                GameManager.Wave += 1;
+                if (GameManager.Wave % 10 == 0)
+                {
+                    GameManager.MonsterHP *= 2;
+                }
+                thisWaveNum = 0;
+
+                yield return new WaitForSeconds(WaveToWave);
+            }
+            else
+            {
+                yield return new WaitForSeconds(MonsterToMonster);
+
+            }
         }
 
     }
-    IEnumerator EndWaveWait()
-    {
-        yield return new WaitForSeconds(5.0f);//MonsterToMonster);
-
-    }
+    
 
 
 

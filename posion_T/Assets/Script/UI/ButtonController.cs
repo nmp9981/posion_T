@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
+
+using TMPro;
+
 
 public class ButtonController : MonoBehaviour
 {
@@ -11,7 +15,7 @@ public class ButtonController : MonoBehaviour
     EventTrigger eventTriggerPlus;
 
     GameObject UiImage;
-    
+
 
     GameObject UiDragImage;
     private void Start()
@@ -19,7 +23,7 @@ public class ButtonController : MonoBehaviour
         UiDragImage = new GameObject();
         UiImage = Resources.Load<GameObject>($"Prefabs/UI/{System.Enum.GetName(typeof(Define.Property), MyProperty)}T_Drag_UI");
 
-        
+
         if (!transform.name.Contains("Plus"))
         {
             eventTrigger = gameObject.GetComponent<EventTrigger>();
@@ -79,11 +83,11 @@ public class ButtonController : MonoBehaviour
     {
         GameObject target = null;
 
-        
+
         Vector2 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Ray2D ray = new Ray2D(pos, Vector2.zero);
         RaycastHit2D hit;
-        hit = Physics2D.Raycast(ray.origin, ray.direction, Mathf.Infinity,1<<7);
+        hit = Physics2D.Raycast(ray.origin, ray.direction, Mathf.Infinity, 1 << 7);
 
         if (hit) //마우스 근처에 오브젝트가 있는지 확인
         {
@@ -96,11 +100,11 @@ public class ButtonController : MonoBehaviour
     {
         //GameManger.Sound
 
-        
+
     }
     void OnBeginDrag(PointerEventData data)
     {
-        if (GameManager.Money >= 10)
+        if (GameManager.Money >= 20)
         {
             UiDragImage = Instantiate(UiImage, this.transform.position, Quaternion.identity, GameObject.Find("Canvas").transform);
         }
@@ -108,7 +112,7 @@ public class ButtonController : MonoBehaviour
     void OnDrag(PointerEventData data)
     {
         //Debug.Log("이미지 끌고다니기");
-        UiDragImage.transform.position = data.position; 
+        UiDragImage.transform.position = data.position;
     }
 
     void OnEndDrag(PointerEventData data)
@@ -118,9 +122,10 @@ public class ButtonController : MonoBehaviour
         GameObject tile = GetClicked2DObject();
         if (tile != null)
         {
-            GameManager.Money -= 10;
+            GameManager.Money -= 20;
+            GameManager.UI.PointUpdate();
             tile.GetComponent<Tile_Controller>().InstanceTower(MyProperty);
-
+            GameManager.Sound.Play("Effect/button2");
         }
         else
         {
@@ -132,9 +137,12 @@ public class ButtonController : MonoBehaviour
     void PointerClick(PointerEventData data)
     {
         Debug.Log("Plus 키");
-        if (transform.GetChild(0).gameObject != null)
+        if (transform.GetChild(1).gameObject != null)
         {
-            transform.GetChild(0).gameObject.SetActive(true);
+            transform.GetChild(1).gameObject.SetActive(true);
+            transform.GetChild(1).transform.GetChild(0).gameObject.SetActive(true);
+            transform.GetChild(1).transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "   "+GameManager.UPGRATECOST[(int)MyProperty];
+
 
         }
     }
@@ -146,7 +154,7 @@ public class ButtonController : MonoBehaviour
 
     void OnPointerDown_Plus(PointerEventData data)
     {
-        
+
     }
 
     void OnDrag_Plus(PointerEventData data)
@@ -163,16 +171,23 @@ public class ButtonController : MonoBehaviour
     void OnEndDrag_Plus(PointerEventData data)
     {
         Debug.Log("PlusRayCastTower");
+        gameObject.SetActive(false);
+
     }
 
     void PointerClick_Plus(PointerEventData data)
     {
-        //Debug.Log("Plus Plus 키");
-        if (transform.GetChild(0).gameObject != null)
-        {
-            Debug.Log("업그레이드");
-            transform.GetChild(0).gameObject.SetActive(false);
 
+        if (GameManager.LV[(int)MyProperty] < 5 && (GameManager.Money >= GameManager.UPGRATECOST[GameManager.LV[(int)MyProperty]]))
+        {
+            GameManager.Money -= GameManager.UPGRATECOST[GameManager.LV[(int)MyProperty]];
+            GameManager.LV[(int)MyProperty] += 1;
+
+            GameManager.UI.PointUpdate();
+            Debug.Log($"Sprite/UI/9_LV{GameManager.LV[(int)MyProperty] + 1}");
+            //transform.GetComponent<Image>().sprite = Resources.Load<Sprite>($"Sprite/UI/9_LV{GameManager.LV[(int)MyProperty ] + 1}");
+            gameObject.SetActive(false);
         }
+
     }
 }
