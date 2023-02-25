@@ -23,6 +23,7 @@ public class GameManager : MonoBehaviour
     int _thiswavenum = 1;
     int _thiswaveRegen = 0;
     int _life = 10;
+    int _money = 20;
 
     public static GameManager Instance { get { init(); return _instance; } }
     public static InputManager Input { get { return Instance._inputManager; } }
@@ -32,6 +33,7 @@ public class GameManager : MonoBehaviour
     public static ResourceManager Resource { get { return Instance._resourceManager; } }
     public static UIManager UI { get { return Instance._uIManager; }}
     public static GameObject[] Tower { get { return Instance._Tower; } }
+    public static int Money { get { return Instance._money; }set { Instance._money = value; } }
 
     public static int MaxPoint        {get{ return Instance._maxPoint; } set{ Instance._maxPoint = value; } }
     public static int NowPoint        {get{ return Instance._nowpoint; } set{ Instance._maxPoint = value; } }
@@ -64,6 +66,7 @@ public class GameManager : MonoBehaviour
             _instance._Tower[(int)Define.Property.Water] = Resources.Load<GameObject>($"Prefabs/Tower/Tower{(int)Define.Property.Water}");
             _instance._Tower[(int)Define.Property.Grass] = Resources.Load<GameObject>($"Prefabs/Tower/Tower{(int)Define.Property.Grass}");
 
+            _instance._soundManager.Play("BGM/GAMEPLAY");
         }
     }
 

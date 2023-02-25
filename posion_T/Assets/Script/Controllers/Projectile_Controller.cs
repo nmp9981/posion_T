@@ -21,7 +21,11 @@ public class Projectile_Controller : MonoBehaviour
     public float Proj_Dmg { get { return _proj_Dmg; } set { _proj_Dmg = value; } }
     public float Proj_Spead { get { return _proj_Spead; } set { _proj_Spead = value; } }
 
+    private void Start()
+    {
+        Fly();
 
+    }
     float GetSome()
     {
         return 1.0f;
@@ -70,6 +74,6 @@ public class Projectile_Controller : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Fly();
+        //Fly();
     }
 }

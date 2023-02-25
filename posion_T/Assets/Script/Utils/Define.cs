@@ -9,7 +9,7 @@ public class Define
     {
         BGM,
         Effect,
-        MaxCound
+        MaxCount
     }
 
     public enum Property
@@ -18,7 +18,7 @@ public class Define
         Water,
         Grass,
         None,
-        MaxCound
+        MaxCount
     }
 
 }
