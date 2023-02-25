@@ -8,8 +8,9 @@ public class Projectile_Controller : MonoBehaviour
     float _proj_Spead;
     float _proj_Slow;
 
-    float speed = 0.01f;
-    Vector3 point;
+    Vector3 targetPos;//타겟 위치
+    public float projSpeed;
+    Vector3 Tpoint;//목표 위치
 
     [SerializeField]
     Define.Property property = Define.Property.Fire;
@@ -44,21 +45,26 @@ public class Projectile_Controller : MonoBehaviour
     {
         if(other.gameObject.tag == "Mob")//몹이랑 닿으면 없어짐
         {
-            Debug.Log("닿았다");
             Destroy(this.gameObject);
         }
     }
-    
+    public void setTarget(Vector3 point)
+    {
+        Tpoint = point;
+    }
     public void Fly()
     {
-        this.transform.position = Vector3.MoveTowards(this.transform.position, point, speed);
+        //GetComponent<Rigidbody2D>().AddForce(Tpoint);
+        //transform.position = Vector3.MoveTowards(this.transform.position, Tpoint, speed);
+        GetComponent<Rigidbody2D>().velocity = (Vector2)(Tpoint - this.transform.position).normalized * projSpeed;
     }
 
     // Start is called before the first frame update
-    public void Shoot(Vector3 point)
+    public void Shoot(Vector3 point,Vector3 startPos)//목표 지점, 시작 지점
     {
         Target = new GameManager();
         gameObject.transform.LookAt(point);
+        targetPos = point;
     }
 
     // Update is called once per frame

@@ -115,6 +115,7 @@ MonoBehaviour:
   horizon: 1.5
   yzero: 0.1
   yEnd: 3
+  LifeTime: 0
   dist: 0
   _property: 1
 --- !u!70 &-6333502099892310206
@@ -141,7 +142,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1654059620869228200}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0

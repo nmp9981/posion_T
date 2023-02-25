@@ -649,6 +649,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf8a2be16827ce34a9d54bcffc7439e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MonsterToMonster: 2
 --- !u!4 &119332983
 Transform:
   m_ObjectHideFlags: 0
@@ -949,14 +950,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c1e4214d9557a941b47de7eb2de80f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  InAreaMonster: []
-  xpos: 0
-  ypos: 0
-  arrowSpeed: 0.7
-  Projectile: {fileID: 0}
-  arrow: {fileID: 7738568975469457607, guid: 2de92afb902097c40958528cb887b925, type: 3}
-  isDelay: 0
-  property: 0
 --- !u!1 &437209572
 GameObject:
   m_ObjectHideFlags: 0
@@ -1292,11 +1285,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4245756547666148860, guid: b182c13cfb30e524ca14336f51aca308, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4.79
+      value: 2.33
       objectReference: {fileID: 0}
     - target: {fileID: 4245756547666148860, guid: b182c13cfb30e524ca14336f51aca308, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.91
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4245756547666148860, guid: b182c13cfb30e524ca14336f51aca308, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1365,14 +1358,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c1e4214d9557a941b47de7eb2de80f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  InAreaMonster: []
-  xpos: 0
-  ypos: 0
-  arrowSpeed: 0.7
-  Projectile: {fileID: 0}
-  arrow: {fileID: 747128397}
-  isDelay: 0
-  property: 0
 --- !u!4 &747128399
 Transform:
   m_ObjectHideFlags: 0

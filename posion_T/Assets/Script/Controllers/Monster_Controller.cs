@@ -17,6 +17,8 @@ public class Monster_Controller : MonoBehaviour
     public float yzero = 0.1f;
     public float yEnd = 3.0f;
 
+    public float LifeTime;
+
     int checkBox = 0;
     public float dist;
     [SerializeField]
@@ -128,8 +130,10 @@ public class Monster_Controller : MonoBehaviour
 
     }
 
+    
     private void Update()
     {
+        LifeTime += Time.deltaTime;
         ThisMove();
     }
 
