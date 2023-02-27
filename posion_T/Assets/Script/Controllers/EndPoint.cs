@@ -11,7 +11,10 @@ public class EndPoint : MonoBehaviour
             Monster_Controller endOBJ = collision.GetComponent<Monster_Controller>();
             if (endOBJ.Live)
             {
+
                 GameManager.Life -= 1;
+
+
             }
             
 

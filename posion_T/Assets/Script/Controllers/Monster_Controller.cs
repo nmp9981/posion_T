@@ -7,9 +7,9 @@ public class Monster_Controller : MonoBehaviour
     [SerializeField]
     bool _live = true;
     float _HP = 10;
-    float DefaultSpead = 0.01f;
+    float DefaultSpead = 0.1f;
     public float xpos, ypos;
-    public Vector3[] direction = new Vector3[9];
+    Vector3[] direction = new Vector3[9];
 
     public float horizon = 1.5f;
     public float yzero = 0.1f;
@@ -72,31 +72,26 @@ public class Monster_Controller : MonoBehaviour
 
     public void Dead()  //죽음
     {
-
-        GameManager.Resource.MonsterMove -= this.ThisMove;
-        //GameManager.Resource.Monster_List.Remove(this.gameObject);
+        if (!_live)
+        {
+            GameManager.NowPoint += 1;
+        }
         Destroy(this.gameObject);
     }
 
     // Start is called before the first frame update
     void Awake()
     {
-        direction[0] = GameObject.Find("dir1").transform.position;
-        direction[1] = GameObject.Find("dir2").transform.position;
-        direction[2] = GameObject.Find("dir3").transform.position;
-        direction[3] = GameObject.Find("dir4").transform.position;
-        direction[4] = GameObject.Find("dir5").transform.position;
-        direction[5] = GameObject.Find("dir6").transform.position;
-        direction[6] = GameObject.Find("dir7").transform.position;
-        direction[7] = GameObject.Find("dir8").transform.position;
-        direction[8] = GameObject.Find("dir9").transform.position;
+        //Find는 모든 몬스터가 생성될 때마다 사용하기에는 좀 무거움 + 바뀌는 OBJ가 아님으로 여기에서 새로 찾을 이유가 x
+        //Manager로 옮기는것이 합리적
+
+        
+        direction = GameManager.Direction;
 
     }
     void Start()
     {
-        GameManager.Resource.MonsterMove -= this.ThisMove;
-        GameManager.Resource.MonsterMove += this.ThisMove;
-        HP = GameManager.MonsterHP;
+        HP = 10 * GameManager.Wave;
 
     }
 
@@ -110,30 +105,13 @@ public class Monster_Controller : MonoBehaviour
         xpos = this.gameObject.transform.position.x; ypos = this.gameObject.transform.position.y;
         this.transform.position = Vector3.MoveTowards(this.transform.position, direction[checkBox], this.DefaultSpead);
         
-        /*
-        if (Mathf.Abs(xpos) <= horizon && (Mathf.Abs(ypos) >= yEnd || Mathf.Abs(ypos) <= yzero))//오른쪽으로
-        {
-            LRflag = 1;
-            this.gameObject.transform.Translate(this.DefaultSpead * LRflag, 0, 0);
-        }
-        else if (Mathf.Abs(xpos) <= horizon && Mathf.Abs(ypos) <= horizon+0.05f && Mathf.Abs(ypos) >= horizon-0.05f)//왼쪽으로
-        {
-            LRflag = -1;
-            this.gameObject.transform.Translate(this.DefaultSpead * LRflag, 0, 0);
-        }
-        else
-        {
-            if (LRflag == 1) this.gameObject.transform.position = new Vector3(horizon, ypos, 0f);
-            else if (LRflag == -1) this.gameObject.transform.position = new Vector3(-horizon, ypos, 0f);
-            this.gameObject.transform.Translate(0, -this.DefaultSpead, 0);//아래
-        }
-        */
+      
         this.dist += this.DefaultSpead;
 
     }
 
     
-    private void Update()
+    private void FixedUpdate()
     {
         LifeTime += Time.deltaTime;
         ThisMove();

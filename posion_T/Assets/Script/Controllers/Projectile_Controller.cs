@@ -15,6 +15,7 @@ public class Projectile_Controller : MonoBehaviour
     [SerializeField]
     Define.Property property = Define.Property.Fire;
 
+    Vector3[] _direction = new Vector3[9];
 
     GameManager Target;
 
@@ -60,6 +61,7 @@ public class Projectile_Controller : MonoBehaviour
     public void Fly()
     {
         GetComponent<Rigidbody2D>().velocity = (Vector2)(Tpoint - this.transform.position).normalized * projSpeed;
+        
     }
 
     // Start is called before the first frame update
@@ -68,11 +70,9 @@ public class Projectile_Controller : MonoBehaviour
         Target = new GameManager();
         gameObject.transform.LookAt(point);
         targetPos = point;
+        
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        //Fly();
-    }
+    
 }

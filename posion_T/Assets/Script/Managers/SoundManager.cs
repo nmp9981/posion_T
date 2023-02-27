@@ -6,29 +6,49 @@ public class SoundManager
 {
     AudioSource[] _audioSources = new AudioSource[(int)Define.Sound.MaxCount];
     Dictionary<string, AudioClip> _audioClips = new Dictionary<string, AudioClip>();
-
+    GameObject root;
     // MP3 Player   -> AudioSource
     // MP3 À½¿ø     -> AudioClip
     // °ü°´(±Í)     -> AudioListener
 
     public void init()
     {
-        GameObject root = GameObject.Find("@Sound");
+
+        
+
         if (root == null)
         {
-            root = new GameObject { name = "@Sound" };
-            Object.DontDestroyOnLoad(root);
+            root = GameObject.Find("@Sound");
 
-            string[] soundNames = System.Enum.GetNames(typeof(Define.Sound));
-            for (int i = 0; i < soundNames.Length - 1; i++)
+            if (root == null)
             {
-                GameObject go = new GameObject { name = soundNames[i] };
-                _audioSources[i] = go.AddComponent<AudioSource>();
-                go.transform.parent = root.transform;
-            }
+                root = new GameObject { name = "@Sound" };
+                Object.DontDestroyOnLoad(root);
+                string[] soundNames = System.Enum.GetNames(typeof(Define.Sound));
+                for (int i = 0; i < soundNames.Length - 1; i++)
+                {
+                    GameObject go = new GameObject { name = soundNames[i] };
+                    _audioSources[i] = go.AddComponent<AudioSource>();
+                    go.transform.parent = root.transform;
+                }
 
-            _audioSources[(int)Define.Sound.BGM].loop = true;
+                _audioSources[(int)Define.Sound.BGM].loop = true;
+            }
+            else
+            {
+                string[] soundNames = System.Enum.GetNames(typeof(Define.Sound));
+                for (int i = 0; i < soundNames.Length - 1; i++)
+                {
+                    GameObject go = root.transform.Find(soundNames[i]).gameObject;
+                    _audioSources[i] = go.GetComponent<AudioSource>();
+                }
+
+                _audioSources[(int)Define.Sound.BGM].loop = true;
+
+            }
         }
+        
+
     }
 
     public void Clear()
@@ -72,6 +92,7 @@ public class SoundManager
 
     public void SetAudioSourceVolume(float volume, Define.Sound sound)
     {
+        if (_audioSources[(int)sound] == null) Debug.Log("No _audioSources");
         _audioSources[(int)sound].volume = volume;
     }
 
@@ -81,7 +102,7 @@ public class SoundManager
             path = $"Sounds/{path}";
 
         AudioClip audioClip = null;
-        Debug.Log(path);
+        
         if (type == Define.Sound.BGM)
         {
             audioClip = Resources.Load<AudioClip>(path);

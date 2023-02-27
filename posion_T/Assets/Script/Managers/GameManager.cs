@@ -1,14 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
 using UnityEngine.UI;
 
 
 public class GameManager : MonoBehaviour
 {
     // 현재 작업중인 유니티 맞음
-
-
+    
     static GameManager _instance;
     DataManager _dataManager = new DataManager();
     InputManager _inputManager = new InputManager();
@@ -16,55 +17,21 @@ public class GameManager : MonoBehaviour
     ResourceManager _resourceManager = new ResourceManager();
     UIManager _uIManager = new UIManager();
     
-    GameObject[] _Tower;
-
-    int _maxPoint = 0;
-    int _nowpoint = 0;
-    int _thiswavenum = 1;
-    int _thiswaveRegen = 0;
-    int _life = 10;
-    int _money = 40;
-    int _monsterHP = 10;
-
-    public static float[] DMGTABLE = new float[5] { 5, 10, 15, 20, 25 };
-    public static float[] SHOOTSPEED = new float[5] { 1.5f, 1.0f, 0.7f, 0.5f, 0.1f};
-    public static int[] UPGRATECOST = new int[5] { 20, 40, 60, 80, 100};
-
-    int _wave = 1;
-    int[] _lv = new int[4] { 0,0,0,0};  /// <summary>
-                                        /// 0,1,2: 불 물 풀  4: 돈  5, 
-                                        /// </summary>
-    public static int[] GETMONEY = new int[5] { 2, 4, 6, 8, 10 };
-
     public static GameManager Instance { get { init(); return _instance; } }
     public static InputManager Input { get { return Instance._inputManager; } }
     public static DataManager Data { get { return Instance._dataManager; } }
     public static SoundManager Sound { get { return Instance._soundManager; } }
 
     public static ResourceManager Resource { get { return Instance._resourceManager; } }
-    public static UIManager UI { get { return Instance._uIManager; }}
-    public static GameObject[] Tower { get { return Instance._Tower; } }
-    public static int Money { get { return Instance._money; }set { Instance._money = value; Instance._uIManager.PointUpdate(); } }
-    public static int Wave{ get { return Instance._wave; } set { Instance._wave = value; Instance._uIManager.PointUpdate(); } }
-
-    public static int[] LV { get { return Instance._lv; } set { Instance._lv = value; } }
-
-
-    public static int MaxPoint        {get{ return Instance._maxPoint; } set{ Instance._maxPoint = value; } }
-    public static int NowPoint        {get{ return Instance._nowpoint; } set{ Instance._maxPoint = value; } }
-    public static int ThisWaveNum     {get{ return Instance._thiswavenum; } set{ Instance._maxPoint = value; } }
-    public static int ThisWaveRegen   { get { return Instance._thiswaveRegen; }  set { Instance._maxPoint = value; } }
-    public static int Life { get { return Instance._life; } set { Instance._life = value; Instance._uIManager.PointUpdate(); } }
-    public static int MonsterHP{ get { return Instance._monsterHP; } set { Instance._monsterHP = value; } }
-
-    // int _point = 0; == 죽인 적의 수 몬스터의 Dead상황에 ++해 줘야할 data; 
-    // public int _point{}; == 죽인 적의 수 몬스터의 Dead상황에 ++해 줘야할 data; 
+    public static UIManager UI { get { return Instance._uIManager; } }
 
 
     static void init()
     {
-        if(_instance == null)
+
+        if (_instance == null)
         {
+
             GameObject gm = GameObject.Find("GameManager");
             if(gm == null)
             {
@@ -75,6 +42,7 @@ public class GameManager : MonoBehaviour
             DontDestroyOnLoad(gm);
             _instance = gm.GetComponent<GameManager>();
             _instance._soundManager.init();
+
             _instance._uIManager.init();
 
             _instance._Tower = new GameObject[3];
@@ -82,9 +50,20 @@ public class GameManager : MonoBehaviour
             _instance._Tower[(int)Define.Property.Water] = Resources.Load<GameObject>($"Prefabs/Tower/Tower{(int)Define.Property.Water}");
             _instance._Tower[(int)Define.Property.Grass] = Resources.Load<GameObject>($"Prefabs/Tower/Tower{(int)Define.Property.Grass}");
 
-            _instance._money = 40;
+            for(int i=0;i<9; i++)
+            {
+                _instance._direction[i] = GameObject.Find($"dir{i+1}").transform.position;
 
+            }
+            
+
+            _instance._money = 40;
+            _instance._maxPoint = PlayerPrefs.GetInt(MAXSCORESTR, 0);
             _instance.StartCoroutine(_instance.MoneyGet());
+            
+            _instance._soundManager.SetAudioSourceVolume(PlayerPrefs.GetFloat("BGMVol", 0.5f), Define.Sound.BGM);
+            _instance._soundManager.SetAudioSourceVolume(PlayerPrefs.GetFloat("EffectVol", 0.5f), Define.Sound.Effect);
+            _instance._soundManager.Play("BGM/GAMEPLAY", Define.Sound.BGM);
 
 
         }
@@ -94,6 +73,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         init();
+        PauseTime();
     }
 
     // Update is called once per frame
@@ -110,4 +90,100 @@ public class GameManager : MonoBehaviour
             GameManager.Money += GameManager.GETMONEY[GameManager.LV[3]];
         }
     }
+
+    public void DataSave()
+    {
+        if(Instance._maxPoint < Instance._nowPoint)
+        {
+            Instance._maxPoint = Instance._nowPoint;
+        }
+        PlayerPrefs.SetInt(MAXSCORESTR, Instance._maxPoint);
+    }
+
+    public void PauseTime()
+    {
+        Time.timeScale = 0;
+    }
+    public void UnPauseTime()
+    {
+        Time.timeScale = 1;
+    }
+    public void GameOver()
+    {
+        Instance._life = 0;
+        Instance.DataSave();
+        UI.GameOverUI();
+        if (_instance._maxPoint < _instance._nowPoint)
+        {
+            _instance._maxPoint = _instance._nowPoint;
+        }
+        _instance._maxPoint = PlayerPrefs.GetInt(MAXSCORESTR, _instance._maxPoint);
+        _instance.PauseTime();
+
+    }
+    public void Clear()
+    {
+        _instance._uIManager = new UIManager();
+        _instance._uIManager.init();
+
+    }
+
+    public void ReLoadScene()
+    {
+        Instance.DataSave();
+        SceneManager.LoadScene(SCENENAME);
+        Destroy(_instance.gameObject);
+        init();
+        
+
+
+    }
+
+    #region 공유데이터
+
+    GameObject[] _Tower;
+
+    int _maxPoint = 0;
+    int _nowPoint = 0;
+    int _thiswavenum = 1;
+    int _thiswaveRegen = 0;
+    int _life = 5;
+    int _money = 40;
+    int _monsterHP = 10;
+    int _wave = 1;
+    int[] _lv = new int[4] { 0, 0, 0, 0 };  // 0,1,2: 불 물 풀  4: 돈  5, 
+    Vector3[] _direction = new Vector3[9];
+
+    //상수
+    public static readonly float[] DMGTABLE = new float[5] { 5, 10, 15, 20, 25 };
+    public static readonly float[] SHOOTSPEED = new float[5] { 1.5f, 1.0f, 0.7f, 0.5f, 0.1f };
+    public static readonly int[] UPGRATECOST = new int[5] { 20, 40, 60, 80, 100 };
+    public static readonly int[] GETMONEY = new int[5] { 2, 4, 6, 8, 10 };
+    public static readonly string SCENENAME = "PST";
+    public static readonly string maxSCORESTR = "MaxScoreasfln;e;wfnkawe;fnk";
+
+    public static string MAXSCORESTR { get { return maxSCORESTR; } } 
+
+    public static GameObject[] Tower { get { return Instance._Tower; } }
+    public static int Money { get { return Instance._money; } set { Instance._money = value; Instance._uIManager.PointUpdate(); } }
+    public static int Wave { get { return Instance._wave; } set { Instance._wave = value; Instance._uIManager.PointUpdate(); } }
+   
+    public static int[] LV { get { return Instance._lv; } set { Instance._lv = value; } }
+
+    // warning: 이 값의 조정은 Monster_Controller에서 하는것을 원칙으로 한다.
+    public static int MaxPoint { get { return Instance._maxPoint; } set { Instance._maxPoint = value; } }
+    // warning: 이 값의 조정은 Monster_Controller에서 하는것을 원칙으로 한다.
+    public static int NowPoint { get { return Instance._nowPoint; } set { Instance._nowPoint = value; } }
+    public static int ThisWaveNum { get { return Instance._thiswavenum; } set { Instance._thiswavenum = value; } }
+    public static int ThisWaveRegen { get { return Instance._thiswaveRegen; } set { Instance._thiswaveRegen = value; } }
+    // warning: 이 값의 조정은 EndPoint에서 하는것을 원칙으로 한다.
+    public static int Life { get { return Instance._life; } set { Instance._life = value; if (Instance._life <= 0) { Instance.GameOver(); } Instance._uIManager.PointUpdate(); } }
+    public static int MonsterHP { get { return Instance._monsterHP; } set { Instance._monsterHP = value; } }
+    public static Vector3[] Direction { get { return Instance._direction; }  }
+
+    // int _point = 0; == 죽인 적의 수 몬스터의 Dead상황에 ++해 줘야할 data; 
+    // public int _point{}; == 죽인 적의 수 몬스터의 Dead상황에 ++해 줘야할 data; 
+    #endregion
+
+
 }

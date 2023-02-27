@@ -11,7 +11,6 @@ public class T_Controller : MonoBehaviour
     float arrowSpeed = 1f;
     float closeDist = 100;
     GameObject Projectile;
-    public GameObject arrow;
     GameObject myTarget;
     Vector3 target;
     public List<GameObject> inRangeMonster; 
@@ -22,9 +21,11 @@ public class T_Controller : MonoBehaviour
     [SerializeField]
     Define.Property property = Define.Property.Fire;
 
+    Vector3[] _direction = new Vector3[9];
     // Start is called before the first frame update
     void Start()
     {
+        _direction = GameManager.Direction;
         InAreaMonster = new List<Monster_Controller>();
         Projectile = Resources.Load<GameObject>($"Prefabs/Projectile/Projectile{(int)property}");
         myTarget = GameObject.FindWithTag("Arrow");
@@ -62,12 +63,7 @@ public class T_Controller : MonoBehaviour
             {
                 inRangeMonster.Remove(other.gameObject);
             }
-            Monster_Controller M = other.GetComponent<Monster_Controller>();
-            if (InAreaMonster.Count>0)//&& M.)M.Live -> 이게 퍼블릭 처리가 안되어있음
-            {
-                InAreaMonster.Remove(M);
-
-            }
+           
         }
         
     }
@@ -75,8 +71,13 @@ public class T_Controller : MonoBehaviour
     public Vector3 NearestMonster()
     {
         //전체거리
-        FullDist_x = Mathf.Abs(GameObject.Find("dir2").transform.position.x - GameObject.Find("dir3").transform.position.x) * 4;
-        FullDist_y = Mathf.Abs(GameObject.Find("dir1").transform.position.y - GameObject.Find("dir2").transform.position.y) * 4;
+        //FullDist_x = Mathf.Abs(GameObject.Find("dir2").transform.position.x - GameObject.Find("dir3").transform.position.x) * 4;
+        //FullDist_y = Mathf.Abs(GameObject.Find("dir1").transform.position.y - GameObject.Find("dir2").transform.position.y) * 4;
+        //FullDist = FullDist_x + FullDist_y + Mathf.Abs(GameObject.Find("StartPoint").transform.position.x - GameObject.Find("EndPoint").transform.position.x);
+
+        FullDist_x = Mathf.Abs(_direction[1].x - _direction[2].x) * 4;
+        FullDist_y = Mathf.Abs(_direction[0].y - _direction[1].y) * 4;
+
         FullDist = FullDist_x + FullDist_y + Mathf.Abs(GameObject.Find("StartPoint").transform.position.x - GameObject.Find("EndPoint").transform.position.x);
 
         //int idx = 0;
@@ -113,13 +114,16 @@ public class T_Controller : MonoBehaviour
             {
           
                 isDelay = true;
-                GameObject go = Instantiate(arrow);//화살 생성(매개변수로 프리팹 전달),GameObject로 강제 형 변환
-                go.transform.position = this.transform.position;
-                Vector3 point = NearestMonster();
-                go.GetComponent<Projectile_Controller>().Shoot(point, this.transform.position);
-                GameManager.Sound.Play("Effect/button1");
-                go.GetComponent<Projectile_Controller>().setTarget(FindTarget(inRangeMonster).transform.position);
-                Destroy(go, 2f);
+                if (Time.timeScale == 1)
+                {
+                    GameObject go = Instantiate(Projectile);//화살 생성(매개변수로 프리팹 전달),GameObject로 강제 형 변환
+                    go.transform.position = this.transform.position;
+                    Vector3 point = NearestMonster();
+                    go.GetComponent<Projectile_Controller>().Shoot(point, this.transform.position);
+                    GameManager.Sound.Play("Effect/button1");
+                    go.GetComponent<Projectile_Controller>().setTarget(FindTarget(inRangeMonster).transform.position);
+                    Destroy(go, 2f);
+                }
                 yield return new WaitForSecondsRealtime(GameManager.SHOOTSPEED[GameManager.LV[(int)property]]);
                 isDelay = false;
             }

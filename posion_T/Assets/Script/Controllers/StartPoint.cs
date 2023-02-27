@@ -5,7 +5,7 @@ using UnityEngine;
 public class StartPoint : MonoBehaviour
 {
     float MonsterToMonster = 1.0f;
-    float WaveToWave = 7.0f;
+    float WaveToWave = 5.0f;
 
     bool _endWave = true;
     int thisWaveNum = 0;
