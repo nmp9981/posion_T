@@ -15,14 +15,15 @@ public class GameManager : MonoBehaviour
     InputManager _inputManager = new InputManager();
     SoundManager _soundManager = new SoundManager();
     ResourceManager _resourceManager = new ResourceManager();
+    SkillManager _skillManager = new SkillManager();
     UIManager _uIManager = new UIManager();
     
     public static GameManager Instance { get { init(); return _instance; } }
     public static InputManager Input { get { return Instance._inputManager; } }
     public static DataManager Data { get { return Instance._dataManager; } }
     public static SoundManager Sound { get { return Instance._soundManager; } }
-
     public static ResourceManager Resource { get { return Instance._resourceManager; } }
+    public static SkillManager Skill { get { return Instance._skillManager; } }
     public static UIManager UI { get { return Instance._uIManager; } }
 
 
@@ -50,7 +51,13 @@ public class GameManager : MonoBehaviour
             _instance._Tower[(int)Define.Property.Water] = Resources.Load<GameObject>($"Prefabs/Tower/Tower{(int)Define.Property.Water}");
             _instance._Tower[(int)Define.Property.Grass] = Resources.Load<GameObject>($"Prefabs/Tower/Tower{(int)Define.Property.Grass}");
 
-            for(int i=0;i<9; i++)
+            //스킬
+            _instance._Skill = new GameObject[3];
+            _instance._Skill[(int)Define.Skill.Explosion] = Resources.Load<GameObject>($"Prefabs/Skill/Skill{(int)Define.Skill.Explosion}");
+            _instance._Skill[(int)Define.Skill.Nullity] = Resources.Load<GameObject>($"Prefabs/Skill/Skill{(int)Define.Skill.Nullity}");
+            _instance._Skill[(int)Define.Skill.Sticky] = Resources.Load<GameObject>($"Prefabs/Skill/Skill{(int)Define.Skill.Sticky}");
+
+            for (int i=0;i<9; i++)
             {
                 _instance._direction[i] = GameObject.Find($"dir{i+1}").transform.position;
 
@@ -142,6 +149,7 @@ public class GameManager : MonoBehaviour
     #region 공유데이터
 
     GameObject[] _Tower;
+    GameObject[] _Skill;
 
     int _maxPoint = 0;
     int _nowPoint = 0;
@@ -151,6 +159,7 @@ public class GameManager : MonoBehaviour
     int _money = 40;
     int _monsterHP = 10;
     int _wave = 1;
+    int _skillRange = 3;
     int[] _lv = new int[4] { 0, 0, 0, 0 };  // 0,1,2: 불 물 풀  4: 돈  5, 
     Vector3[] _direction = new Vector3[9];
 
@@ -162,12 +171,13 @@ public class GameManager : MonoBehaviour
     public static readonly string SCENENAME = "PST";
     public static readonly string maxSCORESTR = "MaxScoreasfln;e;wfnkawe;fnk";
 
-    public static string MAXSCORESTR { get { return maxSCORESTR; } } 
+    public static string MAXSCORESTR { get { return maxSCORESTR; } }
 
     public static GameObject[] Tower { get { return Instance._Tower; } }
+    public static GameObject[] Skills { get { return Instance._Skill; } }
     public static int Money { get { return Instance._money; } set { Instance._money = value; Instance._uIManager.PointUpdate(); } }
     public static int Wave { get { return Instance._wave; } set { Instance._wave = value; Instance._uIManager.PointUpdate(); } }
-   
+    public static int SkillRange { get { return Instance._skillRange; } set { Instance._skillRange = value; } }
     public static int[] LV { get { return Instance._lv; } set { Instance._lv = value; } }
 
     // warning: 이 값의 조정은 Monster_Controller에서 하는것을 원칙으로 한다.

@@ -20,5 +20,10 @@ public class Define
         None,
         MaxCount
     }
-
+    public enum Skill
+    {
+        Explosion,
+        Sticky,
+        Nullity
+    }
 }

@@ -10,6 +10,7 @@ public class ResourceManager
     public List<GameObject> _monster_List = new List<GameObject>();
     public List<GameObject> Monster_List { get { return _monster_List; }set { _monster_List = value; } }
 
+    public List<GameObject> InAreaMonster_List = new List<GameObject>();//3*3범위 몬스터
 
     int idx;
 
