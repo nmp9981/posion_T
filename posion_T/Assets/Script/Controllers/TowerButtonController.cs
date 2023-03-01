@@ -101,7 +101,8 @@ public class TowerButtonController : MonoBehaviour
             GameObject tile = GetClicked2DObject();
             if (tile != null && (GameManager.Money >= 20))
             {
-                if (tile.transform.childCount == 0) {
+                if (tile.transform.GetComponent<Tile_Controller>().TowerNum== 0) {
+                    tile.transform.GetComponent<Tile_Controller>().TowerNum += 1;
                     GameManager.Money -= 20;
                     GameManager.UI.PointUpdate();
                     tile.GetComponent<Tile_Controller>().InstanceTower(MyProperty);

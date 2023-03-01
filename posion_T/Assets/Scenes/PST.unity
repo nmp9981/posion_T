@@ -343,6 +343,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2597140936174256851, guid: 9808cd76b924ef846a33540b5c37deab, type: 3}
+      propertyPath: MySkill
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4468544122043669975, guid: 9808cd76b924ef846a33540b5c37deab, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 1
@@ -405,6 +409,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6907230792994655369, guid: 9808cd76b924ef846a33540b5c37deab, type: 3}
       propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8772364278178595649, guid: 9808cd76b924ef846a33540b5c37deab, type: 3}
+      propertyPath: MySkill
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8833523488524460637, guid: 9808cd76b924ef846a33540b5c37deab, type: 3}
@@ -507,6 +515,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9001325926780420607, guid: 9808cd76b924ef846a33540b5c37deab, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 84d28ce05c9b6de42b809d09bb10f484, type: 3}
+    - target: {fileID: 9001325927234197344, guid: 9808cd76b924ef846a33540b5c37deab, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: f2da2ab8ae55eeb42a63592b5820e638, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9808cd76b924ef846a33540b5c37deab, type: 3}
 --- !u!224 &604586860 stripped

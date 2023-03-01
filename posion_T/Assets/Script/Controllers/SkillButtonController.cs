@@ -17,9 +17,16 @@ public class SkillButtonController : MonoBehaviour
     GameObject UiDragImage;
 
     GameObject ShowUpgradeMoney;
+
+    readonly int[] _skillConst = new int[(int)Define.Skill.MaxCount];
+    
+
     bool CanBuild = false;
     private void Start()
     {
+        _skillConst[(int)Define.Skill.Explosion] = 20;
+        _skillConst[(int)Define.Skill.Sticky] = 20;
+        _skillConst[(int)Define.Skill.Nullity] = 20;
         UiDragImage = new GameObject();
         UiImage = Resources.Load<GameObject>($"Prefabs/UI/{System.Enum.GetName(typeof(Define.Skill), MySkill)}_Drag_UI");
 
@@ -65,7 +72,7 @@ public class SkillButtonController : MonoBehaviour
         Vector2 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Ray2D ray = new Ray2D(pos, Vector2.zero);
         RaycastHit2D hit;
-        hit = Physics2D.Raycast(ray.origin, ray.direction, Mathf.Infinity, 1 << 7);
+        hit = Physics2D.Raycast(ray.origin, ray.direction, Mathf.Infinity);
 
         if (hit) //마우스 근처에 오브젝트가 있는지 확인
         {
@@ -81,7 +88,7 @@ public class SkillButtonController : MonoBehaviour
     }
     void OnBeginDrag(PointerEventData data)
     {
-        if (GameManager.Money >= 2)
+        if (GameManager.Money >= _skillConst[(int)MySkill])
         {
             UiDragImage = Instantiate(UiImage, this.transform.position, Quaternion.identity, GameObject.Find("Canvas").transform);
             CanBuild = true;
@@ -99,15 +106,24 @@ public class SkillButtonController : MonoBehaviour
         if (CanBuild)
         {
             GameObject tile = GetClicked2DObject();
-            if (tile != null && (GameManager.Money >= 20))
+            if (tile != null && (GameManager.Money >= _skillConst[(int)MySkill]))
             {
+                /*
                 if (tile.transform.childCount == 0)
                 {
-                    GameManager.Money -= 2;
+                    GameManager.Money -= _skillConst[(int)MySkill];
                     GameManager.UI.PointUpdate();
                     tile.GetComponent<SkillTile>().InstanceSkill(MySkill);
                     GameManager.Sound.Play("Effect/button2");
                 }
+                */
+                GameManager.Money -= _skillConst[(int)MySkill];
+                GameManager.UI.PointUpdate();
+                tile.GetComponent<Tile_Controller>().InstanceSkill(MySkill);
+                
+                GameManager.Sound.Play("Effect/button2");
+
+
             }
 
         }

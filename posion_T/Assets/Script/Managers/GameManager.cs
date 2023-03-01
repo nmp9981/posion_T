@@ -67,7 +67,30 @@ public class GameManager : MonoBehaviour
             _instance._money = 40;
             _instance._maxPoint = PlayerPrefs.GetInt(MAXSCORESTR, 0);
             _instance.StartCoroutine(_instance.MoneyGet());
+
             
+            for (int i = 0; i < 11; i++)
+            {
+                GameObject tmp = GameObject.Find($"Line ({i})");
+                _instance._map.Add(new List<GameObject>());
+                for(int num = 0; num < tmp.transform.childCount; num++)
+                {
+                    _instance._map[i].Add(GameObject.Find($"Square ({num})"));
+                }
+            }
+
+            for (int y = 0; y < 11; y++)
+            {
+                for (int x = 0; x < _instance._map[0].Count; x++)
+                {
+                    _instance._map[y][x].GetComponent<Tile_Controller>().Y = y;
+                    _instance._map[y][x].GetComponent<Tile_Controller>().X = x;
+
+                }
+            }
+            // Explosion는 업그레이드 불가 ==  태생 lv5
+            _instance._lv[(int)Define.LV.Explosion] = 5;
+
             _instance._soundManager.SetAudioSourceVolume(PlayerPrefs.GetFloat("BGMVol", 0.5f), Define.Sound.BGM);
             _instance._soundManager.SetAudioSourceVolume(PlayerPrefs.GetFloat("EffectVol", 0.5f), Define.Sound.Effect);
             _instance._soundManager.Play("BGM/GAMEPLAY", Define.Sound.BGM);
@@ -150,6 +173,8 @@ public class GameManager : MonoBehaviour
 
     GameObject[] _Tower;
     GameObject[] _Skill;
+    List<List<GameObject>> _map = new List<List<GameObject>>();
+
 
     int _maxPoint = 0;
     int _nowPoint = 0;
@@ -160,7 +185,8 @@ public class GameManager : MonoBehaviour
     int _monsterHP = 10;
     int _wave = 1;
     int _skillRange = 3;
-    int[] _lv = new int[4] { 0, 0, 0, 0 };  // 0,1,2: 불 물 풀  4: 돈  5, 
+    int[] _lv = new int[(int)Define.LV.MaxCount] { 0, 0, 0, 0, 0, 0, 0, 0};  // 0,1,2: 불 물 풀  4: 돈  5, 
+
     Vector3[] _direction = new Vector3[9];
 
     //상수
@@ -190,6 +216,8 @@ public class GameManager : MonoBehaviour
     public static int Life { get { return Instance._life; } set { Instance._life = value; if (Instance._life <= 0) { Instance.GameOver(); } Instance._uIManager.PointUpdate(); } }
     public static int MonsterHP { get { return Instance._monsterHP; } set { Instance._monsterHP = value; } }
     public static Vector3[] Direction { get { return Instance._direction; }  }
+
+    public static List<List<GameObject>> Map = new List<List<GameObject>>();
 
     // int _point = 0; == 죽인 적의 수 몬스터의 Dead상황에 ++해 줘야할 data; 
     // public int _point{}; == 죽인 적의 수 몬스터의 Dead상황에 ++해 줘야할 data; 

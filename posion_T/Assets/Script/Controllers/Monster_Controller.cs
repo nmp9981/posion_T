@@ -7,7 +7,7 @@ public class Monster_Controller : MonoBehaviour
     [SerializeField]
     bool _live = true;
     float _HP = 10;
-    float DefaultSpead = 0.1f;
+    float _speed = 0.1f;
     public float xpos, ypos;
     Vector3[] direction = new Vector3[9];
 
@@ -15,12 +15,17 @@ public class Monster_Controller : MonoBehaviour
     public float yzero = 0.1f;
     public float yEnd = 3.0f;   
     public bool Live { get { return _live; } set { _live = value; } }
+    public float Speed { get { return _speed; } set { _speed = value; } }
+
     public float LifeTime;
     int checkBox = 0;
     public float dist;
+    Define.Property _bornproperty = Define.Property.Fire;
+
     [SerializeField]
     Define.Property _property = Define.Property.Fire;
     public Define.Property Property { get { return _property; } set { _property = value; } }
+    public Define.Property BornProperty { get { return _bornproperty; }}
 
     public float HP { get { return _HP;}set { _HP = value; } }
 
@@ -46,6 +51,15 @@ public class Monster_Controller : MonoBehaviour
 
         this.HP -= DMG;
         Debug.Log("HP " + HP);
+        if (this.HP <= 0)//사망
+        {
+            _live = false;
+            Invoke("Dead", 0);
+        }
+    }
+    public void beAttacked(float DMG) //데미지, 투사체 속성
+    {
+        this.HP -= DMG;
         if (this.HP <= 0)//사망
         {
             _live = false;
@@ -85,28 +99,29 @@ public class Monster_Controller : MonoBehaviour
         //Find는 모든 몬스터가 생성될 때마다 사용하기에는 좀 무거움 + 바뀌는 OBJ가 아님으로 여기에서 새로 찾을 이유가 x
         //Manager로 옮기는것이 합리적
 
-        
         direction = GameManager.Direction;
 
     }
     void Start()
     {
+        _bornproperty = _property;
         HP = 10 * GameManager.Wave;
 
     }
 
-    float RealSpead(float plusMin)//실제 속도
+    public float Slow(float slowPer)//실제 속도
     {
-        return DefaultSpead * plusMin;
+        return _speed * (1 - slowPer);
     }
 
     void ThisMove()
     {
-        xpos = this.gameObject.transform.position.x; ypos = this.gameObject.transform.position.y;
-        this.transform.position = Vector3.MoveTowards(this.transform.position, direction[checkBox], this.DefaultSpead);
+        xpos = this.gameObject.transform.position.x; 
+        ypos = this.gameObject.transform.position.y;
+        this.transform.position = Vector3.MoveTowards(this.transform.position, direction[checkBox], this._speed);
         
       
-        this.dist += this.DefaultSpead;
+        this.dist += this._speed;
 
     }
 
@@ -116,5 +131,23 @@ public class Monster_Controller : MonoBehaviour
         LifeTime += Time.deltaTime;
         ThisMove();
     }
+
+    //슬로우 장판 위에서만 슬로우? 슬로우 장판이 묻으면 슬로우?
+    /*
+    void Slow(float SlowTime, float SlowPer)
+    {
+        StartCoroutine(_slow(SlowTime, SlowPer));
+    }
+
+
+    IEnumerator _slow(float SlowTime, float SlowPer)
+    {
+        Debug.Log("슬로우 장판");
+        float NowSpeed = DefaultSpead;
+        DefaultSpead = (1.0f - SlowPer) * DefaultSpead;
+        yield return new WaitForSeconds(SlowTime);
+        DefaultSpead = NowSpeed;
+    }
+    */
 
 }

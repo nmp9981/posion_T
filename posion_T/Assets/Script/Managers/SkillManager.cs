@@ -7,6 +7,8 @@ public class SkillManager : MonoBehaviour
     int explosionDamage = 300;
     float skillRange = 1.5f;//¹üÀ§³»
     List<GameObject> InArea = new List<GameObject>();
+
+    
     // Start is called before the first frame update
     void Start()
     {
