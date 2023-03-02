@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 using TMPro;
-
+using System;
 
 public class SkillButtonController : MonoBehaviour
 {
@@ -27,13 +27,12 @@ public class SkillButtonController : MonoBehaviour
         _skillConst[(int)Define.Skill.Explosion] = 20;
         _skillConst[(int)Define.Skill.Sticky] = 20;
         _skillConst[(int)Define.Skill.Nullity] = 20;
+        
         UiDragImage = new GameObject();
+
         UiImage = Resources.Load<GameObject>($"Prefabs/UI/{System.Enum.GetName(typeof(Define.Skill), MySkill)}_Drag_UI");
-
-        ShowUpgradeMoney = new GameObject();
-
-
-        //ShowUpgradeMoney = transform.Find($"{transform.name} Plus").gameObject;
+        
+        ShowUpgradeMoney = transform.Find($"{transform.name} Plus").gameObject;
 
         eventTrigger = gameObject.GetComponent<EventTrigger>();
         EventTrigger.Entry entry_PointerDown = new EventTrigger.Entry();
@@ -72,7 +71,7 @@ public class SkillButtonController : MonoBehaviour
         Vector2 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Ray2D ray = new Ray2D(pos, Vector2.zero);
         RaycastHit2D hit;
-        hit = Physics2D.Raycast(ray.origin, ray.direction, Mathf.Infinity);
+        hit = Physics2D.Raycast(ray.origin, ray.direction, Mathf.Infinity, (1 << 7) + (1 << 8));
 
         if (hit) //마우스 근처에 오브젝트가 있는지 확인
         {
@@ -101,26 +100,22 @@ public class SkillButtonController : MonoBehaviour
 
     void OnEndDrag(PointerEventData data)
     {
-        Destroy(UiDragImage);
+        if (UiDragImage != null)
+        {
+            Destroy(UiDragImage);
+        }
+        
         UiDragImage = new GameObject();
+        
         if (CanBuild)
         {
-            GameObject tile = GetClicked2DObject();
+            GameObject tile = GameManager.Input.GetClicked2DObject(((1 << 7) + (1 << 8 )));
+
             if (tile != null && (GameManager.Money >= _skillConst[(int)MySkill]))
             {
-                /*
-                if (tile.transform.childCount == 0)
-                {
-                    GameManager.Money -= _skillConst[(int)MySkill];
-                    GameManager.UI.PointUpdate();
-                    tile.GetComponent<SkillTile>().InstanceSkill(MySkill);
-                    GameManager.Sound.Play("Effect/button2");
-                }
-                */
                 GameManager.Money -= _skillConst[(int)MySkill];
                 GameManager.UI.PointUpdate();
                 tile.GetComponent<Tile_Controller>().InstanceSkill(MySkill);
-                
                 GameManager.Sound.Play("Effect/button2");
 
 
@@ -128,13 +123,15 @@ public class SkillButtonController : MonoBehaviour
 
         }
         CanBuild = false;
+
+
     }
 
     void PointerClick(PointerEventData data)
     {
         Debug.Log("Plus 키");
 
-        //ShowUpgradeMoney.gameObject.SetActive(true);
+        ShowUpgradeMoney.gameObject.SetActive(true);
 
     }
 

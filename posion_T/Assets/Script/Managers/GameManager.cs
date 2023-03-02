@@ -45,6 +45,7 @@ public class GameManager : MonoBehaviour
             _instance._soundManager.init();
 
             _instance._uIManager.init();
+            _instance._inputManager.init();
 
             _instance._Tower = new GameObject[3];
             _instance._Tower[(int)Define.Property.Fire] = Resources.Load<GameObject>($"Prefabs/Tower/Tower{(int)Define.Property.Fire}");
@@ -89,7 +90,7 @@ public class GameManager : MonoBehaviour
                 }
             }
             // Explosion는 업그레이드 불가 ==  태생 lv5
-            _instance._lv[(int)Define.LV.Explosion] = 5;
+            _instance._lv[(int)Define.LV.Explosion] = 4;
 
             _instance._soundManager.SetAudioSourceVolume(PlayerPrefs.GetFloat("BGMVol", 0.5f), Define.Sound.BGM);
             _instance._soundManager.SetAudioSourceVolume(PlayerPrefs.GetFloat("EffectVol", 0.5f), Define.Sound.Effect);
@@ -190,10 +191,12 @@ public class GameManager : MonoBehaviour
     Vector3[] _direction = new Vector3[9];
 
     //상수
-    public static readonly float[] DMGTABLE = new float[5] { 5, 10, 15, 20, 25 };
-    public static readonly float[] SHOOTSPEED = new float[5] { 1.5f, 1.0f, 0.7f, 0.5f, 0.1f };
-    public static readonly int[] UPGRATECOST = new int[5] { 20, 40, 60, 80, 100 };
-    public static readonly int[] GETMONEY = new int[5] { 2, 4, 6, 8, 10 };
+    public static readonly float[] DMGTABLE     = new float[5] { 5, 10, 15, 20, 25 };
+    public static readonly float[] SHOOTSPEED   = new float[5] { 1.5f, 1.0f, 0.7f, 0.5f, 0.1f };
+    public static readonly int[] UPGRATECOST    = new int[5] { 20, 40, 60, 80, 100 };
+    public static readonly int[] GETMONEY       = new int[5] { 2, 4, 6, 8, 10 };
+    public static readonly float[] SKILLEXISTTIME = new float[5] { 5, 7, 9, 11, 15 };
+
     public static readonly string SCENENAME = "PST";
     public static readonly string maxSCORESTR = "MaxScoreasfln;e;wfnkawe;fnk";
 

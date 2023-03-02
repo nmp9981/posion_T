@@ -23,9 +23,6 @@ public class TowerButtonController : MonoBehaviour
         UiDragImage = new GameObject();
         UiImage = Resources.Load<GameObject>($"Prefabs/UI/{System.Enum.GetName(typeof(Define.Property), MyProperty)}T_Drag_UI");
 
-        ShowUpgradeMoney = new GameObject();
-
-        
         ShowUpgradeMoney = transform.Find($"{transform.name} Plus").gameObject;
 
         eventTrigger = gameObject.GetComponent<EventTrigger>();
@@ -57,23 +54,7 @@ public class TowerButtonController : MonoBehaviour
         
 
     }
-    public GameObject GetClicked2DObject()
-    {
-        GameObject target = null;
-
-
-        Vector2 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        Ray2D ray = new Ray2D(pos, Vector2.zero);
-        RaycastHit2D hit;
-        hit = Physics2D.Raycast(ray.origin, ray.direction, Mathf.Infinity, 1 << 7);
-
-        if (hit) //마우스 근처에 오브젝트가 있는지 확인
-        {
-            //있으면 오브젝트를 저장한다.
-            target = hit.collider.gameObject;
-        }
-        return target;
-    }
+    
     void OnPointerDown(PointerEventData data)
     {
        
@@ -98,7 +79,7 @@ public class TowerButtonController : MonoBehaviour
         UiDragImage = new GameObject();
         if (CanBuild)
         {
-            GameObject tile = GetClicked2DObject();
+            GameObject tile = GameManager.Input.GetClicked2DObject(1<<7);
             if (tile != null && (GameManager.Money >= 20))
             {
                 if (tile.transform.GetComponent<Tile_Controller>().TowerNum== 0) {

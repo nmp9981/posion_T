@@ -29,7 +29,7 @@ public class UIManager
     public TextMeshProUGUI MaxPoint { get { return _maxPoint; } set { _maxPoint = value; } }
     public TextMeshProUGUI NowPoint { get { return _nowPoint; } set { _nowPoint = value; } }
     public GameObject MainScene { get { return _mainScene; } set { _mainScene = value; } }
-
+    int idx = 0;
     public void init()
     {
         _maxPoint = GameObject.Find("MaxPoint").GetComponent<TextMeshProUGUI>();
@@ -39,22 +39,23 @@ public class UIManager
         GameOverScene = GameObject.Find("GameOver").gameObject;
 
         _mainScene = GameObject.Find("MainPage").gameObject;
-
+        
         _wavePointEnd = GameOverScene.transform.Find("WaveEnd").GetComponent<TextMeshProUGUI>();
         _nowPointEnd = GameOverScene.transform.Find("NowScoreEnd").GetComponent<TextMeshProUGUI>();
         _maxPointEnd = GameOverScene.transform.Find("BestScoreEnd").GetComponent<TextMeshProUGUI>();
-
+        
         FullLife = Resources.Load<Sprite>("Sprite/UI/3_체력O");
         emptyLife = Resources.Load<Sprite>("Sprite/UI/3_체력X");
 
-
         
+
         for (int i = 0; i < 5; i++)
         {
             lifeArray[i] = GameObject.Find($"Life{i+1}").gameObject;
         }
         GameOverScene.SetActive(false);
         GameManager.UI.PointUpdate();
+
     }
     public void PointUpdate()
     {

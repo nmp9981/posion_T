@@ -11,6 +11,7 @@ public class T_Controller : MonoBehaviour
     float arrowSpeed = 1f;
     float closeDist = 100;
     GameObject Projectile;
+    GameObject _deleteButton;
     GameObject myTarget;
     Vector3 target;
     public List<GameObject> inRangeMonster; 
@@ -26,6 +27,7 @@ public class T_Controller : MonoBehaviour
     void Start()
     {
         _direction = GameManager.Direction;
+        _deleteButton = transform.Find("Delete").gameObject;
         InAreaMonster = new List<Monster_Controller>();
         Projectile = Resources.Load<GameObject>($"Prefabs/Projectile/Projectile{(int)property}");
         myTarget = GameObject.FindWithTag("Arrow");
@@ -106,6 +108,18 @@ public class T_Controller : MonoBehaviour
 
     }
 
+    private void Update()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            GameObject Tower = GameManager.Input.GetClicked2DObject(1<<10);
+            if (Tower != null && Tower == gameObject)
+            {
+                _deleteButton.SetActive(true);
+            }
+        }
+    }
+
     IEnumerator ContinueShoot()
     {
         while (true)
@@ -149,4 +163,10 @@ public class T_Controller : MonoBehaviour
         }
         return mons[nowIdx];
     }
+
+    public void SelfDestroy()
+    {
+        transform.parent.GetComponent<Tile_Controller>().TowerNum = 0;
+        Destroy(this.gameObject);
+    } 
 }

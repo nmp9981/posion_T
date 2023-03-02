@@ -40,7 +40,6 @@ public class StartPoint : MonoBehaviour
 
             if (thisWaveNum >= GameManager.Wave * 2)
             {
-                Debug.Log("WaveUP");
                 GameManager.Wave += 1;
                 if (GameManager.Wave % 10 == 0)
                 {

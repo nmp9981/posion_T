@@ -1,3 +1,4 @@
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,9 +7,9 @@ using UnityEngine.UI;
 
 using TMPro;
 
-
 public class TowerUpgradeController : MonoBehaviour
 {
+
     [SerializeField]
     Define.Property MyProperty = Define.Property.Fire;
     EventTrigger eventTrigger;
@@ -57,26 +58,9 @@ public class TowerUpgradeController : MonoBehaviour
         entry_Click_Plus.eventID = EventTriggerType.PointerClick;
         entry_Click_Plus.callback.AddListener((data) => { PointerClick_Plus((PointerEventData)data); });
         eventTrigger.triggers.Add(entry_Click_Plus);
-    
+
     }
-    public GameObject GetClicked2DObject()
-    {
-        GameObject target = null;
 
-
-        Vector2 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        Ray2D ray = new Ray2D(pos, Vector2.zero);
-        RaycastHit2D hit;
-        hit = Physics2D.Raycast(ray.origin, ray.direction, Mathf.Infinity, 1 << 7);
-
-        if (hit) //마우스 근처에 오브젝트가 있는지 확인
-        {
-            //있으면 오브젝트를 저장한다.
-            target = hit.collider.gameObject;
-        }
-        return target;
-    }
-    
     void OnPointerDown_Plus(PointerEventData data)
     {
 
@@ -97,7 +81,7 @@ public class TowerUpgradeController : MonoBehaviour
     void PointerClick_Plus(PointerEventData data)
     {
 
-        if (GameManager.LV[(int)MyProperty] < 5 && (GameManager.Money >= GameManager.UPGRATECOST[GameManager.LV[(int)MyProperty]]))
+        if (GameManager.LV[(int)MyProperty] < 4 && (GameManager.Money >= GameManager.UPGRATECOST[GameManager.LV[(int)MyProperty]]))
         {
             GameManager.Money -= GameManager.UPGRATECOST[GameManager.LV[(int)MyProperty]];
             GameManager.LV[(int)MyProperty] += 1;
@@ -111,26 +95,17 @@ public class TowerUpgradeController : MonoBehaviour
         }
 
     }
+    /*
     private void Update()
     {
         if (Input.GetMouseButtonDown(0))
         {
-            
-            Vector2 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            Ray2D ray = new Ray2D(pos, Vector2.zero);
-            RaycastHit2D hit;
-            hit = Physics2D.Raycast(ray.origin, ray.direction, Mathf.Infinity);
-
-            if (hit) //마우스 근처에 오브젝트가 있는지 확인
+            if(EventSystem.current.currentSelectedGameObject != this.gameObject)
             {
-                //있으면 오브젝트를 저장한다.
-                if(hit.collider.gameObject != gameObject)
-                {
-                    gameObject.SetActive(false);
-                    Debug.Log(gameObject.name + " 비활성화");
-                }
+                gameObject.SetActive(false);
             }
             
         }
     }
+    */
 }

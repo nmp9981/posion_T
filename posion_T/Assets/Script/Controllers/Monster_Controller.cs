@@ -7,6 +7,7 @@ public class Monster_Controller : MonoBehaviour
     [SerializeField]
     bool _live = true;
     float _HP = 10;
+    public readonly float DEFAULTSPEED = 0.1f;
     float _speed = 0.1f;
     public float xpos, ypos;
     Vector3[] direction = new Vector3[9];
@@ -109,11 +110,7 @@ public class Monster_Controller : MonoBehaviour
 
     }
 
-    public float Slow(float slowPer)//실제 속도
-    {
-        return _speed * (1 - slowPer);
-    }
-
+    
     void ThisMove()
     {
         xpos = this.gameObject.transform.position.x; 

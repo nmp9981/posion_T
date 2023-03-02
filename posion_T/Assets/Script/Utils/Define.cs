@@ -18,9 +18,10 @@ public class Define
         Grass,
         AttackSpeed,
         Money,
+        // 5+skill
         Explosion,
-        Sticky,
         Nullity,
+        Sticky,
 
         MaxCount
     }

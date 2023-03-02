@@ -52,7 +52,10 @@ public class UI : MonoBehaviour
     }
     public void UnPauseTime()
     {
-        GameManager.Instance.UnPauseTime();
+        if(GameManager.UI.MainScene.activeSelf == false)
+        {
+            GameManager.Instance.UnPauseTime();
+        }
 
     }
     public void GameStart()
