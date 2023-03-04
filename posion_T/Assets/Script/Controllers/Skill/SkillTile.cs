@@ -46,10 +46,18 @@ public class SkillTile : MonoBehaviour
                     other.GetComponent<Monster_Controller>().beAttacked(300);
                     break;
                 case Define.Skill.Sticky:
-                    other.GetComponent<Monster_Controller>().Speed = other.GetComponent<Monster_Controller>().DEFAULTSPEED/2;
+                    if(other.GetComponent<Monster_Controller>().stickyCount == 0)//장판에 처음 들어옴
+                    {
+                        other.GetComponent<Monster_Controller>().Speed = other.GetComponent<Monster_Controller>().DEFAULTSPEED / 2;//속도 감소
+                    }
+                    other.GetComponent<Monster_Controller>().stickyCount++;
                     break;
                 case Define.Skill.Nullity:
-                    other.GetComponent<Monster_Controller>().Property = Define.Property.None;
+                    if (other.GetComponent<Monster_Controller>().nullCount == 0)//장판에 처음 들어옴
+                    {
+                        other.GetComponent<Monster_Controller>().Property = Define.Property.None;
+                    }
+                    other.GetComponent<Monster_Controller>().nullCount++;
                     break;
             }
 
@@ -71,8 +79,7 @@ public class SkillTile : MonoBehaviour
                     //other.GetComponent<Monster_Controller>().beAttacked(300);
                     break;
                 case Define.Skill.Sticky:
-
-                    other.GetComponent<Monster_Controller>().Speed = other.GetComponent<Monster_Controller>().DEFAULTSPEED/2;
+                    other.GetComponent<Monster_Controller>().Speed = other.GetComponent<Monster_Controller>().DEFAULTSPEED / 2;
                     break;
                 case Define.Skill.Nullity:
                     //other.GetComponent<Monster_Controller>().Property = other.GetComponent<Monster_Controller>().BornProperty;
@@ -96,10 +103,18 @@ public class SkillTile : MonoBehaviour
                     //other.GetComponent<Monster_Controller>().beAttacked(300);
                     break;
                 case Define.Skill.Sticky:
-                    other.GetComponent<Monster_Controller>().Speed = other.GetComponent<Monster_Controller>().DEFAULTSPEED;
+                    if (other.GetComponent<Monster_Controller>().stickyCount == 1)//마지막 장판을 나감
+                    {
+                        other.GetComponent<Monster_Controller>().Speed = other.GetComponent<Monster_Controller>().DEFAULTSPEED;//원래대로
+                    }
+                    other.GetComponent<Monster_Controller>().stickyCount--;
                     break;
                 case Define.Skill.Nullity:
-                    other.GetComponent<Monster_Controller>().Property = other.GetComponent<Monster_Controller>().BornProperty;
+                    if (other.GetComponent<Monster_Controller>().nullCount == 1)//마지막 장판을 나감
+                    {
+                        other.GetComponent<Monster_Controller>().Property = other.GetComponent<Monster_Controller>().BornProperty;//원래대로
+                    }
+                    other.GetComponent<Monster_Controller>().nullCount--;
                     break;
 
                 default:

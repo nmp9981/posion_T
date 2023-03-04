@@ -162,7 +162,8 @@ public class GameManager : MonoBehaviour
     public void ReLoadScene()
     {
         Instance.DataSave();
-        SceneManager.LoadScene(SCENENAME);
+        //SceneManager.LoadScene(SCENENAME);
+        SceneManager.LoadScene(SCENENAMELHW);
         Destroy(_instance.gameObject);
         init();
         
@@ -198,6 +199,7 @@ public class GameManager : MonoBehaviour
     public static readonly float[] SKILLEXISTTIME = new float[5] { 5, 7, 9, 11, 15 };
 
     public static readonly string SCENENAME = "PST";
+    public static readonly string SCENENAMELHW = "LHW3";
     public static readonly string maxSCORESTR = "MaxScoreasfln;e;wfnkawe;fnk";
 
     public static string MAXSCORESTR { get { return maxSCORESTR; } }

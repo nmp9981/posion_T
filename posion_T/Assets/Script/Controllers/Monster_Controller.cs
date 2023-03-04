@@ -19,6 +19,8 @@ public class Monster_Controller : MonoBehaviour
     public float Speed { get { return _speed; } set { _speed = value; } }
 
     public float LifeTime;
+    public int stickyCount = 0;//슬로우 장판 겹치는 횟수
+    public int nullCount = 0;//속성 무효 장판 겹치는 횟수
     int checkBox = 0;
     public float dist;
     Define.Property _bornproperty = Define.Property.Fire;
