@@ -1,49 +1,41 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
+using TMPro;
 
 public class TestCode : MonoBehaviour
 {
-    int num = 0;
+    TMP_InputField InputField;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        if (name == "Square")
+        InputField = this.transform.GetComponent<TMP_InputField>();
+    }
+    public void OnEndEditStartHP()
+    {
+        try
         {
-            Debug.Log("1. Square");
-            num = 1;
+            GameManager.StartHP = Int32.Parse(InputField.text);
 
-            StartCoroutine(Dest());
+            Debug.Log($"StartHP {InputField.text}");
         }
-        else if (name == "Capsule")
+        catch (Exception e)
         {
-            Debug.Log("1. Capsule");
-            num = 2;
+            Debug.Log("StartInputFail");
         }
-
     }
-
-
-    private void OnTriggerEnter2D(Collider2D collision)
+    public void OnEndEditWaveHP()
     {
-        Debug.Log("2. Enter " + name);
-    }
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        Debug.Log("4. Exit " + name);
+        try
+        {
+            GameManager.WaveHPPlus = Int32.Parse(InputField.text);
+            Debug.Log($"WavetHP {InputField.text}");
 
-    }
-    IEnumerator Dest()
-    {
-        Debug.Log("3. Counting");
-        yield return new WaitForSeconds(3);
-
-
-        Destroy(this.gameObject);
-        Debug.Log("5. bye");
-        
-
-
+        }
+        catch (Exception e)
+        {
+            Debug.Log("WaveHPInputFail");
+        }
     }
 }

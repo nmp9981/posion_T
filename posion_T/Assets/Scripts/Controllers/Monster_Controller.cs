@@ -23,8 +23,9 @@ public class Monster_Controller : MonoBehaviour
     public int nullCount = 0;//¼Ó¼º ¹«È¿ ÀåÆÇ °ãÄ¡´Â È½¼ö
     int checkBox = 0;
     public float dist;
-    Define.Property _bornproperty = Define.Property.Fire;
 
+   
+    Define.Property _bornproperty = Define.Property.Fire;
     [SerializeField]
     Define.Property _property = Define.Property.Fire;
     public Define.Property Property { get { return _property; } set { _property = value; } }
@@ -53,7 +54,6 @@ public class Monster_Controller : MonoBehaviour
         }
 
         this.HP -= DMG;
-        Debug.Log("HP " + HP);
         if (this.HP <= 0)//»ç¸Á
         {
             _live = false;
@@ -122,7 +122,7 @@ public class Monster_Controller : MonoBehaviour
     void Start()
     {
         _bornproperty = _property;
-        HP = 6 + (GameManager.Wave - 1)*(4);
+        HP = GameManager.StartHP + (GameManager.Wave - 1)*(GameManager.WaveHPPlus);
 
     }
 

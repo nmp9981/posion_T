@@ -123,7 +123,7 @@ public class UIManager
         _textFields[(int)TextEnum.WavePoint].text = $"{GameManager.Wave} WAVE";
         _textFields[(int)TextEnum.NowPoint].text = $"SCORE: {GameManager.NowPoint}";
         _textFields[(int)TextEnum.MaxPoint].text = $"BEST SCORE: {GameManager.MaxPoint}";
-        _textFields[(int)TextEnum.MoneyPoint].text = $"{(int)GameManager.Money}¿ø";
+        _textFields[(int)TextEnum.MoneyPoint].text = $"{(int)GameManager.Money}";
         HPBar();
 
     }

@@ -179,6 +179,10 @@ public class GameManager : MonoBehaviour
     GameObject[] _Skill;
     List<List<GameObject>> _map = new List<List<GameObject>>();
 
+    int _startHP = 6;
+    int _waveHPPlus = 4;
+
+    
 
     int _maxPoint = 0;
     int _nowPoint = 0;
@@ -204,6 +208,8 @@ public class GameManager : MonoBehaviour
     public static readonly string SCENENAME = "PST";
     public static readonly string SCENENAMELHW = "LHW3";
     public static readonly string maxSCORESTR = "MaxScoreasfln;e;wfnkawe;fnk";
+    public static int StartHP { get { return Instance._startHP; } set { Instance._startHP = value; } }
+    public static int WaveHPPlus { get { return Instance._waveHPPlus; } set { Instance._waveHPPlus = value; } }
 
     public static string MAXSCORESTR { get { return maxSCORESTR; } }
 
