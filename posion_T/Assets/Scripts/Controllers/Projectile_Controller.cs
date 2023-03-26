@@ -9,7 +9,8 @@ public class Projectile_Controller : MonoBehaviour
     float _proj_Slow;
 
     Vector3 targetPos;//타겟 위치
-    public float projSpeed;
+    float _projSpeed = 15.0f;
+    public float ProjSpeed { get { return _projSpeed; } }
     Vector3 Tpoint;//목표 위치
 
     [SerializeField]
@@ -60,7 +61,7 @@ public class Projectile_Controller : MonoBehaviour
     }
     public void Fly()
     {
-        GetComponent<Rigidbody2D>().velocity = (Vector2)(Tpoint - this.transform.position).normalized * projSpeed;
+        GetComponent<Rigidbody2D>().velocity = (Vector2)(Tpoint - this.transform.position).normalized * ProjSpeed;
         
     }
 

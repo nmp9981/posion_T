@@ -21,6 +21,10 @@ public class StartPoint : MonoBehaviour
         StartCoroutine(MonsterWave());
 
     }
+    float MonsterToMonsterTime()
+    {
+        return 16.0f / (15 + GameManager.Wave);
+    }
     void MonsterRegen()
     {
         int MonsterIDX = Random.Range(0, 3);
@@ -40,15 +44,17 @@ public class StartPoint : MonoBehaviour
 
             if (thisWaveNum >= GameManager.Wave * 2)
             {
-                GameManager.Wave += 1;
                 if (GameManager.Wave % 10 == 0)
                 {
                     GameManager.MonsterHP *= 2;
                 }
                 thisWaveNum = 0;
                 yield return new WaitForSeconds(WaveToWave);
-
+                
                 GameManager.Sound.Play("Effect/wavestart");
+
+                GameManager.Wave += 1;
+                MonsterToMonster = MonsterToMonsterTime();
             }
             else
             {

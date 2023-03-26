@@ -69,7 +69,7 @@ public class UI : MonoBehaviour
     }
     public void UnPauseTime()
     {
-        if(GameManager.UI.ElseFields[(int)Define.Else.MainPage].activeSelf == false)
+        if(GameManager.UI.ElseFields[(int)Define.Else.MainPage].activeSelf == false && GameManager.UI.ElseFields[(int)Define.Else.GameOver].activeSelf == false)
         {
             GameManager.Instance.UnPauseTime();
         }
@@ -79,6 +79,7 @@ public class UI : MonoBehaviour
     {
         GameManager.UI.MainPageOff();
         UnPauseTime();
+        GameManager.UI.PointUpdate();
     }
     public void ReStartGame()
     {

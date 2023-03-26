@@ -13,7 +13,7 @@ public class UIManager
     TextMeshProUGUI _text = new TextMeshProUGUI();
 
     GameObject[] lifeArray = new GameObject[5];
-    GameObject GameOverScene;
+    //GameObject GameOverScene;
     GameObject _UI;
     GameObject _UIField;
 
@@ -75,15 +75,14 @@ public class UIManager
         }
 
 
-        GameOverScene = GameObject.Find("GameOver").gameObject;
+        //GameOverScene = GameObject.Find("GameOver").gameObject;
 
         _mainScene = GameObject.Find("MainPage").gameObject;
         
 
         FullLife = Resources.Load<Sprite>("Sprite/UI/3_체력O");
         emptyLife = Resources.Load<Sprite>("Sprite/UI/3_체력X");
-        
-        GameOverScene.SetActive(false);
+
         _LVImage = new Sprite[5];
         for (int i = 0; i < 5; i++)
         {
@@ -108,7 +107,9 @@ public class UIManager
         {
             lifeArray[i] = GameObject.Find($"Life{i+1}").gameObject;
         }
-        GameOverScene.SetActive(false);
+        //GameOverScene.SetActive(false);
+        ElseFields[(int)Define.Else.GameOver].SetActive(false);
+
         GameManager.UI.PointUpdate();
 
         _UI = GameObject.Find("UI");
@@ -142,7 +143,8 @@ public class UIManager
 
     public void GameOverUI()
     {
-        GameOverScene.SetActive(true);
+        ElseFields[(int)Define.Else.GameOver].SetActive(true);
+        //GameOverScene.SetActive(true);
 
         _textFields[(int)TextEnum.WaveEnd].text = $"{GameManager.Wave} WAVE";
         _textFields[(int)TextEnum.NowScoreEnd].text = $"SCORE: {GameManager.NowPoint}";

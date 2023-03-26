@@ -179,7 +179,7 @@ public class GameManager : MonoBehaviour
     GameObject[] _Skill;
     List<List<GameObject>> _map = new List<List<GameObject>>();
 
-    int _startHP = 6;
+    int _startHP = 2;
     int _waveHPPlus = 4;
 
     
@@ -199,11 +199,11 @@ public class GameManager : MonoBehaviour
     Vector3[] _direction = new Vector3[9];
 
     //»ó¼ö
-    public static readonly float[] DMGTABLE     = new float[5] { 5, 10, 15, 20, 25 };
-    public static readonly float[] SHOOTSPEED   = new float[5] { 1.5f, 1.0f, 0.7f, 0.5f, 0.1f };
-    public static readonly int[] UPGRATECOST    = new int[5] { 20, 40, 60, 80, 100 };
-    public static readonly int[] GETMONEY       = new int[5] { 2, 4, 6, 8, 10 };
-    public static readonly float[] SKILLEXISTTIME = new float[5] { 5, 7, 9, 11, 15 };
+    public static readonly float[] DMGTABLE     = new float[5] { 3, 6, 12, 32, 32 };
+    public static readonly float[] SHOOTSPEED   = new float[5] { 2.0f, 1.30f, 0.65f, 0.3f, 0.3f };
+    public static readonly int[] UPGRATECOST    = new int[5] { 20, 100, 680, 3000, 3000 };
+    public static readonly int[] GETMONEY       = new int[5] { 2, 4, 8, 16, 32 };
+    public static readonly float[] SKILLEXISTTIME = new float[5] { 4, 7, 14, 20, 30 };
 
     public static readonly string SCENENAME = "PST";
     public static readonly string SCENENAMELHW = "LHW3";

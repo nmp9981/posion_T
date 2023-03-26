@@ -104,7 +104,7 @@ public class Monster_Controller : MonoBehaviour
                     break;
 
             }
-
+            GameManager.Money += GameManager.Wave * 2;
             GameManager.NowPoint += 1;
         }
         Destroy(this.gameObject);
@@ -122,7 +122,8 @@ public class Monster_Controller : MonoBehaviour
     void Start()
     {
         _bornproperty = _property;
-        HP = GameManager.StartHP + (GameManager.Wave - 1)*(GameManager.WaveHPPlus);
+        HP = GameManager.StartHP + (GameManager.Wave - 1) * (GameManager.Wave - 1) * (GameManager.WaveHPPlus);
+        Debug.Log(HP);
 
     }
 
