@@ -94,8 +94,7 @@ public class GameManager : MonoBehaviour
 
             _instance._soundManager.SetAudioSourceVolume(PlayerPrefs.GetFloat("BGMVol", 0.5f), Define.Sound.BGM);
             _instance._soundManager.SetAudioSourceVolume(PlayerPrefs.GetFloat("EffectVol", 0.5f), Define.Sound.Effect);
-            _instance._soundManager.Play("BGM/GAMEPLAY", Define.Sound.BGM);
-
+            Sound.Play("BGM/MainPageBGM", Define.Sound.BGM);
 
         }
     }

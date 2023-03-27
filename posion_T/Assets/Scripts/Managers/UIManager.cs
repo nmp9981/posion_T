@@ -41,8 +41,9 @@ public class UIManager
     public GameObject UI { get { return _UI; } }
     public GameObject UIField { get { return _UIField; } }
 
-
     int idx = 0;
+
+
 
 
     public void init()
@@ -162,6 +163,7 @@ public class UIManager
     public void GameStart()
     {
         GameManager.Instance.UnPauseTime();
+        GameManager.Sound.Play("BGM/GAMEPLAY", Define.Sound.BGM);
         _mainScene.SetActive(false);
 
     }

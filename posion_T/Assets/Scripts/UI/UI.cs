@@ -78,6 +78,7 @@ public class UI : MonoBehaviour
     public void GameStart()
     {
         GameManager.UI.MainPageOff();
+        GameManager.Sound.Play("BGM/GAMEPLAY", Define.Sound.BGM);
         UnPauseTime();
         GameManager.UI.PointUpdate();
     }
