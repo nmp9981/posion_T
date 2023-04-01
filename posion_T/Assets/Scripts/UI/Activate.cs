@@ -19,12 +19,12 @@ public class Activate : MonoBehaviour
 
     public void MoneySetActiveTrue()
     {
-        if (Obj != null && GameManager.LV[(int)Define.LV.MoneyGet] < 4)
+        if (Obj != null && GameManager.Instance.LV[(int)Define.LV.MoneyGet] < 4)
             Obj.SetActive(true);
     }
     public void SpeedSetActiveTrue()
     {
-        if (Obj != null && GameManager.LV[(int)Define.LV.ShootSpeed] < 4)
+        if (Obj != null && GameManager.Instance.LV[(int)Define.LV.ShootSpeed] < 4)
             Obj.SetActive(true);
     }
 

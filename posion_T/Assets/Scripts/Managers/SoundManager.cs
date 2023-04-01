@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class SoundManager
 {
+
+    
     AudioSource[] _audioSources = new AudioSource[(int)Define.Sound.MaxCount];
     Dictionary<string, AudioClip> _audioClips = new Dictionary<string, AudioClip>();
     GameObject root;
@@ -13,9 +15,6 @@ public class SoundManager
 
     public void init()
     {
-
-        
-
         if (root == null)
         {
             root = GameObject.Find("@Sound");

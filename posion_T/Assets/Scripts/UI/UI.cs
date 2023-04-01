@@ -113,16 +113,16 @@ public class UI : MonoBehaviour
 
     public void TowerShootSpeedUpgrade()
     {
-        if (GameManager.LV[(int)Define.LV.ShootSpeed] < 4 && (GameManager.Money >= GameManager.UPGRATECOST[GameManager.LV[(int)Define.LV.ShootSpeed]]))
+        if (GameManager.Instance.LV[(int)Define.LV.ShootSpeed] < 4 && (GameManager.Instance.Money >= GameManager.UPGRATECOST[GameManager.Instance.LV[(int)Define.LV.ShootSpeed]]))
         {
             GameManager.Sound.Play("Effect/button2");
 
-            GameManager.Money -= GameManager.UPGRATECOST[GameManager.LV[(int)Define.LV.ShootSpeed]];
-            GameManager.LV[(int)Define.LV.ShootSpeed] += 1;
+            GameManager.Instance.Money -= GameManager.UPGRATECOST[GameManager.Instance.LV[(int)Define.LV.ShootSpeed]];
+            GameManager.Instance.LV[(int)Define.LV.ShootSpeed] += 1;
             GameManager.UI.PointUpdate();
 
-            GameManager.UI.ButtonsLV[(int)Define.ButtonsEnum.ShootSpeed].GetComponent<Image>().sprite = GameManager.UI.LVImage[GameManager.LV[(int)Define.LV.ShootSpeed]];
-            GameManager.UI.Uibuttons[(int)Define.ButtonsEnum.ShootSpeed].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{GameManager.UPGRATECOST[GameManager.LV[(int)Define.LV.ShootSpeed]]}";
+            GameManager.UI.ButtonsLV[(int)Define.ButtonsEnum.ShootSpeed].GetComponent<Image>().sprite = GameManager.UI.LVImage[GameManager.Instance.LV[(int)Define.LV.ShootSpeed]];
+            GameManager.UI.Uibuttons[(int)Define.ButtonsEnum.ShootSpeed].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{GameManager.UPGRATECOST[GameManager.Instance.LV[(int)Define.LV.ShootSpeed]]}";
 
             GameManager.UI.Uibuttons[(int)Define.ButtonsEnum.ShootSpeed].SetActive(false);
         }
@@ -130,15 +130,15 @@ public class UI : MonoBehaviour
 
     public void MoneyGetUpgrade()
     {
-        if (GameManager.LV[(int)Define.LV.MoneyGet] < 4 && (GameManager.Money >= GameManager.UPGRATECOST[GameManager.LV[(int)Define.LV.MoneyGet]]))
+        if (GameManager.Instance.LV[(int)Define.LV.MoneyGet] < 4 && (GameManager.Instance.Money >= GameManager.UPGRATECOST[GameManager.Instance.LV[(int)Define.LV.MoneyGet]]))
         {
             GameManager.Sound.Play("Effect/button2");
-            GameManager.Money -= GameManager.UPGRATECOST[GameManager.LV[(int)Define.LV.MoneyGet]];
-            GameManager.LV[(int)Define.LV.MoneyGet] += 1;
+            GameManager.Instance.Money -= GameManager.UPGRATECOST[GameManager.Instance.LV[(int)Define.LV.MoneyGet]];
+            GameManager.Instance.LV[(int)Define.LV.MoneyGet] += 1;
             GameManager.UI.PointUpdate();
 
-            GameManager.UI.ButtonsLV[(int)Define.ButtonsEnum.MoneyGet].GetComponent<Image>().sprite = GameManager.UI.LVImage[GameManager.LV[(int)Define.LV.MoneyGet]];
-            GameManager.UI.Uibuttons[(int)Define.ButtonsEnum.MoneyGet].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{GameManager.UPGRATECOST[GameManager.LV[(int)Define.LV.MoneyGet]]}";
+            GameManager.UI.ButtonsLV[(int)Define.ButtonsEnum.MoneyGet].GetComponent<Image>().sprite = GameManager.UI.LVImage[GameManager.Instance.LV[(int)Define.LV.MoneyGet]];
+            GameManager.UI.Uibuttons[(int)Define.ButtonsEnum.MoneyGet].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{GameManager.UPGRATECOST[GameManager.Instance.LV[(int)Define.LV.MoneyGet]]}";
             GameManager.UI.Uibuttons[(int)Define.ButtonsEnum.MoneyGet].SetActive(false);
 
         }

@@ -7,12 +7,11 @@ using UnityEngine.UI;
 using TMPro;
 using System;
 
-public class SkillButtonController : MonoBehaviour
+public class SkillButtonController : EventTriggerEX
 {
     [SerializeField]
     Define.Skill MySkill = Define.Skill.Explosion;
-    EventTrigger eventTrigger;
-
+    
     GameObject UiImage;
     GameObject UiDragImage;
 
@@ -34,71 +33,30 @@ public class SkillButtonController : MonoBehaviour
         
         ShowUpgradeMoney = transform.Find($"{transform.name}_Plus").gameObject;
 
-        eventTrigger = gameObject.GetComponent<EventTrigger>();
-        EventTrigger.Entry entry_PointerDown = new EventTrigger.Entry();
-        entry_PointerDown.eventID = EventTriggerType.PointerDown;
-        entry_PointerDown.callback.AddListener((data) => { OnPointerDown((PointerEventData)data); });
-        eventTrigger.triggers.Add(entry_PointerDown);
-
-        EventTrigger.Entry entry_Drag = new EventTrigger.Entry();
-        entry_Drag.eventID = EventTriggerType.Drag;
-        entry_Drag.callback.AddListener((data) => { OnDrag((PointerEventData)data); });
-        eventTrigger.triggers.Add(entry_Drag);
-
-        EventTrigger.Entry Begin_Drag = new EventTrigger.Entry();
-        Begin_Drag.eventID = EventTriggerType.BeginDrag;
-        Begin_Drag.callback.AddListener((data) => { OnBeginDrag((PointerEventData)data); });
-        eventTrigger.triggers.Add(Begin_Drag);
-
-
-        EventTrigger.Entry entry_EndDrag = new EventTrigger.Entry();
-        entry_EndDrag.eventID = EventTriggerType.EndDrag;
-        entry_EndDrag.callback.AddListener((data) => { OnEndDrag((PointerEventData)data); });
-        eventTrigger.triggers.Add(entry_EndDrag);
-
-        EventTrigger.Entry entry_Click = new EventTrigger.Entry();
-        entry_Click.eventID = EventTriggerType.PointerClick;
-        entry_Click.callback.AddListener((data) => { PointerClick((PointerEventData)data); });
-        eventTrigger.triggers.Add(entry_Click);
-
+        init();
+       
 
     }
-    public GameObject GetClicked2DObject()
-    {
-        GameObject target = null;
-
-
-        Vector2 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        Ray2D ray = new Ray2D(pos, Vector2.zero);
-        RaycastHit2D hit;
-        hit = Physics2D.Raycast(ray.origin, ray.direction, Mathf.Infinity, (1 << 7) + (1 << 8));
-
-        if (hit) //마우스 근처에 오브젝트가 있는지 확인
-        {
-            //있으면 오브젝트를 저장한다.
-            target = hit.collider.gameObject;
-        }
-        return target;
-    }
-    void OnPointerDown(PointerEventData data)
+    
+    protected override void OnPointerDown(PointerEventData data)
     {
 
 
     }
-    void OnBeginDrag(PointerEventData data)
+    protected override void OnBeginDrag(PointerEventData data)
     {
-        if (GameManager.Money >= _skillConst[(int)MySkill])
+        if (GameManager.Instance.Money >= _skillConst[(int)MySkill])
         {
             UiDragImage = Instantiate(UiImage, this.transform.position, Quaternion.identity, GameObject.Find("Canvas").transform);
             CanBuild = true;
         }
     }
-    void OnDrag(PointerEventData data)
+    protected override void OnDrag(PointerEventData data)
     {
         UiDragImage.transform.position = data.position;
     }
 
-    void OnEndDrag(PointerEventData data)
+    protected override void OnEndDrag(PointerEventData data)
     {
         if (UiDragImage != null)
         {
@@ -111,9 +69,9 @@ public class SkillButtonController : MonoBehaviour
         {
             GameObject tile = GameManager.Input.GetClicked2DObject(((1 << 7) + (1 << 8 )));
 
-            if (tile != null && (GameManager.Money >= _skillConst[(int)MySkill]))
+            if (tile != null && (GameManager.Instance.Money >= _skillConst[(int)MySkill]))
             {
-                GameManager.Money -= _skillConst[(int)MySkill];
+                GameManager.Instance.Money -= _skillConst[(int)MySkill];
                 GameManager.UI.PointUpdate();
                 tile.GetComponent<Tile_Controller>().InstanceSkill(MySkill);
                 GameManager.Sound.Play("Effect/button2");
@@ -127,9 +85,9 @@ public class SkillButtonController : MonoBehaviour
 
     }
 
-    void PointerClick(PointerEventData data)
+    protected override void OnPointerClick(PointerEventData data)
     {
-        if (GameManager.LV[(int)MySkill + 5] < 4)
+        if (GameManager.Instance.LV[(int)MySkill + 5] < 4)
         {
 
             Debug.Log("Plus 키");

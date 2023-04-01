@@ -57,7 +57,7 @@ public class UIManager
 
             if(_uibuttons[i] == null)
             {
-                Debug.Log("_uibuttons[i]" + i);
+                //Debug.Log("_uibuttons[i]" + i);
             }
         }
 
@@ -95,14 +95,8 @@ public class UIManager
         _buttonsLV = new GameObject[(int)Define.ButtonsEnum.MaxCount];
 
         _buttonsLV[(int)Define.ButtonsEnum.ShootSpeed] = GameObject.Find("AttackSpeadLV");
-        if (_buttonsLV[(int)Define.ButtonsEnum.ShootSpeed] != null) { Debug.Log(_buttonsLV[(int)Define.ButtonsEnum.ShootSpeed].name); }
-
-
         _buttonsLV[(int)Define.ButtonsEnum.MoneyGet] = GameObject.Find("UpgradeMoneyLV");
-        if (_buttonsLV[(int)Define.ButtonsEnum.MoneyGet] != null) { Debug.Log(_buttonsLV[(int)Define.ButtonsEnum.MoneyGet].name); }
-
-
-
+        
 
         for (int i = 0; i < 5; i++)
         {
@@ -122,20 +116,20 @@ public class UIManager
     }
     public void PointUpdate()
     {
-        _textFields[(int)TextEnum.WavePoint].text = $"{GameManager.Wave} WAVE";
-        _textFields[(int)TextEnum.NowPoint].text = $"SCORE: {GameManager.NowPoint}";
-        _textFields[(int)TextEnum.MaxPoint].text = $"BEST SCORE: {GameManager.MaxPoint}";
-        _textFields[(int)TextEnum.MoneyPoint].text = $"{(int)GameManager.Money}";
+        _textFields[(int)TextEnum.WavePoint].text = $"{GameManager.Instance.Wave} WAVE";
+        _textFields[(int)TextEnum.NowPoint].text = $"SCORE: {GameManager.Instance.NowPoint}";
+        _textFields[(int)TextEnum.MaxPoint].text = $"BEST SCORE: {GameManager.Instance.MaxPoint}";
+        _textFields[(int)TextEnum.MoneyPoint].text = $"{(int)GameManager.Instance.Money}";
         HPBar();
 
     }
     void HPBar()
     {
-        for (int i = 0; i < GameManager.Life; i++)
+        for (int i = 0; i < GameManager.Instance.Life; i++)
         {
             lifeArray[i].GetComponent<Image>().sprite = FullLife;
         }
-        for (int i = GameManager.Life; i < FULLLIFE; i++)
+        for (int i = GameManager.Instance.Life; i < FULLLIFE; i++)
         {
             lifeArray[i].GetComponent<Image>().sprite = emptyLife;
         }
@@ -147,9 +141,9 @@ public class UIManager
         ElseFields[(int)Define.Else.GameOver].SetActive(true);
         //GameOverScene.SetActive(true);
 
-        _textFields[(int)TextEnum.WaveEnd].text = $"{GameManager.Wave} WAVE";
-        _textFields[(int)TextEnum.NowScoreEnd].text = $"SCORE: {GameManager.NowPoint}";
-        _textFields[(int)TextEnum.BestScoreEnd].text = $"BEST SCORE: {GameManager.MaxPoint}";
+        _textFields[(int)TextEnum.WaveEnd].text = $"{GameManager.Instance.Wave} WAVE";
+        _textFields[(int)TextEnum.NowScoreEnd].text = $"SCORE: {GameManager.Instance.NowPoint}";
+        _textFields[(int)TextEnum.BestScoreEnd].text = $"BEST SCORE: {GameManager.Instance.MaxPoint}";
 
     }
 

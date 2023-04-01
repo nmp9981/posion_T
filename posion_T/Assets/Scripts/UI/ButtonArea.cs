@@ -31,7 +31,7 @@ public class ButtonArea : MonoBehaviour
             Debug.Log($"{transform.name} : cant find LV:  {transform.parent.name}LV");
         }
         ShowUpgradeMoneyText = transform.GetChild(0).GetComponent<TextMeshProUGUI>();
-        ShowUpgradeMoneyText.text = $"{GameManager.UPGRATECOST[GameManager.LV[(int)MySkill]]}";
+        ShowUpgradeMoneyText.text = $"{GameManager.UPGRATECOST[GameManager.Instance.LV[(int)MySkill]]}";
 
         Debug.Log(ShowUpgradeMoneyText.name);
 
@@ -71,15 +71,15 @@ public class ButtonArea : MonoBehaviour
     {
         Debug.Log("InSkillUpgrade");
         int SkillToLv = (int)MySkill + 5;
-        if (GameManager.LV[SkillToLv] < 4 && (GameManager.Money >= GameManager.UPGRATECOST[GameManager.LV[SkillToLv]]))
+        if (GameManager.Instance.LV[SkillToLv] < 4 && (GameManager.Instance.Money >= GameManager.UPGRATECOST[GameManager.Instance.LV[SkillToLv]]))
         {
-            GameManager.Money -= GameManager.UPGRATECOST[GameManager.LV[SkillToLv]];
-            GameManager.LV[SkillToLv] += 1;
+            GameManager.Instance.Money -= GameManager.UPGRATECOST[GameManager.Instance.LV[SkillToLv]];
+            GameManager.Instance.LV[SkillToLv] += 1;
 
             GameManager.UI.PointUpdate();
 
-            LVImage.GetComponent<Image>().sprite = Resources.Load<Sprite>($"Sprite/UI/9_LV{GameManager.LV[SkillToLv] + 1}");
-            ShowUpgradeMoneyText.text = $"{GameManager.UPGRATECOST[GameManager.LV[SkillToLv]]}";
+            LVImage.GetComponent<Image>().sprite = Resources.Load<Sprite>($"Sprite/UI/9_LV{GameManager.Instance.LV[SkillToLv] + 1}");
+            ShowUpgradeMoneyText.text = $"{GameManager.UPGRATECOST[GameManager.Instance.LV[SkillToLv]]}";
 
             gameObject.SetActive(false);
         }
@@ -105,15 +105,15 @@ public class ButtonArea : MonoBehaviour
         /*
         Debug.Log("InSkillUpgrade");
         int SkillToLv = (int)MySkill + 5;
-        if (GameManager.LV[SkillToLv] < 4 && (GameManager.Money >= GameManager.UPGRATECOST[GameManager.LV[SkillToLv]]))
+        if (GameManager.Instance.LV[SkillToLv] < 4 && (GameManager.Instance.Money >= GameManager.UPGRATECOST[GameManager.Instance.LV[SkillToLv]]))
         {
-            GameManager.Money -= GameManager.UPGRATECOST[GameManager.LV[SkillToLv]];
-            GameManager.LV[SkillToLv] += 1;
+            GameManager.Instance.Money -= GameManager.UPGRATECOST[GameManager.Instance.LV[SkillToLv]];
+            GameManager.Instance.LV[SkillToLv] += 1;
 
             GameManager.UI.PointUpdate();
 
-            LVImage.GetComponent<Image>().sprite = Resources.Load<Sprite>($"Sprite/UI/9_LV{GameManager.LV[SkillToLv] + 1}");
-            ShowUpgradeMoneyText.text = $"{GameManager.UPGRATECOST[GameManager.LV[SkillToLv]]}";
+            LVImage.GetComponent<Image>().sprite = Resources.Load<Sprite>($"Sprite/UI/9_LV{GameManager.Instance.LV[SkillToLv] + 1}");
+            ShowUpgradeMoneyText.text = $"{GameManager.UPGRATECOST[GameManager.Instance.LV[SkillToLv]]}";
 
             gameObject.SetActive(false);
         }

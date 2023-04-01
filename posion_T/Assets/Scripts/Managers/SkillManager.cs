@@ -19,9 +19,9 @@ public class SkillManager : MonoBehaviour
     public void Explosion()
     {
         //비용이 충분한가?
-        if(GameManager.Money >= GameManager.UPGRATECOST[GameManager.LV[2]])
+        if(GameManager.Instance.Money >= GameManager.UPGRATECOST[GameManager.Instance.LV[2]])
         {
-            GameManager.Money -= GameManager.UPGRATECOST[GameManager.LV[2]];
+            GameManager.Instance.Money -= GameManager.UPGRATECOST[GameManager.Instance.LV[2]];
 
             //범위내 몬스터 공격
             for(int i=0;i<InArea.Count; i++)

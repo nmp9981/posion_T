@@ -23,7 +23,7 @@ public class StartPoint : MonoBehaviour
     }
     float MonsterToMonsterTime()
     {
-        return 16.0f / (15 + GameManager.Wave);
+        return 16.0f / (15 + GameManager.Instance.Wave);
     }
     void MonsterRegen()
     {
@@ -42,18 +42,18 @@ public class StartPoint : MonoBehaviour
             MonsterRegen();
             thisWaveNum += 1;
 
-            if (thisWaveNum >= GameManager.Wave * 2)
+            if (thisWaveNum >= GameManager.Instance.Wave * 2)
             {
-                if (GameManager.Wave % 10 == 0)
+                if (GameManager.Instance.Wave % 10 == 0)
                 {
-                    GameManager.MonsterHP *= 2;
+                    GameManager.Instance.MonsterHP *= 2;
                 }
                 thisWaveNum = 0;
                 yield return new WaitForSeconds(WaveToWave);
                 
                 GameManager.Sound.Play("Effect/wavestart");
 
-                GameManager.Wave += 1;
+                GameManager.Instance.Wave += 1;
                 MonsterToMonster = MonsterToMonsterTime();
             }
             else

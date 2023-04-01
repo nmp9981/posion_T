@@ -117,7 +117,7 @@ public class GameManager : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(1.0f);
-            Money += GETMONEY[GameManager.LV[(int)Define.LV.MoneyGet]];
+            Money += GETMONEY[Instance.LV[(int)Define.LV.MoneyGet]];
         }
     }
 
@@ -207,30 +207,29 @@ public class GameManager : MonoBehaviour
     public static readonly string SCENENAME = "PST";
     public static readonly string SCENENAMELHW = "LHW3";
     public static readonly string maxSCORESTR = "MaxScoreasfln;e;wfnkawe;fnk";
-    public static int StartHP { get { return Instance._startHP; } set { Instance._startHP = value; } }
-    public static int WaveHPPlus { get { return Instance._waveHPPlus; } set { Instance._waveHPPlus = value; } }
+    public int StartHP { get { return Instance._startHP; } set { Instance._startHP = value; } }
+    public int WaveHPPlus { get { return Instance._waveHPPlus; } set { Instance._waveHPPlus = value; } }
 
     public static string MAXSCORESTR { get { return maxSCORESTR; } }
 
-    public static GameObject[] Tower { get { return Instance._Tower; } }
-    public static GameObject[] Skills { get { return Instance._Skill; } }
-    public static int Money { get { return Instance._money; } set { Instance._money = value; Instance._uIManager.PointUpdate(); } }
-    public static int Wave { get { return Instance._wave; } set { Instance._wave = value; Instance._uIManager.PointUpdate(); } }
-    public static int SkillRange { get { return Instance._skillRange; } set { Instance._skillRange = value; } }
-    public static int[] LV { get { return Instance._lv; } set { Instance._lv = value; } }
-    public static int ShootSpeed { get { return Instance._shootSpeed; } set { Instance._shootSpeed = value; } }
+    public GameObject[] Tower { get { return Instance._Tower; } }
+    public GameObject[] Skills { get { return Instance._Skill; } }
+    public int Money { get { return Instance._money; } set { Instance._money = value; Instance._uIManager.PointUpdate(); } }
+    public int Wave { get { return Instance._wave; } set { Instance._wave = value; Instance._uIManager.PointUpdate(); } }
+    public int[] LV { get { return Instance._lv; } set { Instance._lv = value; } }
+    public int ShootSpeed { get { return Instance._shootSpeed; } set { Instance._shootSpeed = value; } }
     // warning: 이 값의 조정은 Monster_Controller에서 하는것을 원칙으로 한다.
-    public static int MaxPoint { get { return Instance._maxPoint; } set { Instance._maxPoint = value; } }
-    // warning: 이 값의 조정은 Monster_Controller에서 하는것을 원칙으로 한다.
-    public static int NowPoint { get { return Instance._nowPoint; } set { Instance._nowPoint = value; } }
-    public static int ThisWaveNum { get { return Instance._thiswavenum; } set { Instance._thiswavenum = value; } }
-    public static int ThisWaveRegen { get { return Instance._thiswaveRegen; } set { Instance._thiswaveRegen = value; } }
-    // warning: 이 값의 조정은 EndPoint에서 하는것을 원칙으로 한다.
-    public static int Life { get { return Instance._life; } set { Instance._life = value; if (Instance._life <= 0) { Instance.GameOver(); } Instance._uIManager.PointUpdate(); } }
-    public static int MonsterHP { get { return Instance._monsterHP; } set { Instance._monsterHP = value; } }
-    public static Vector3[] Direction { get { return Instance._direction; }  }
+    public int MaxPoint { get { return Instance._maxPoint; } set { Instance._maxPoint = value; } }
+    // warn 값의 조정은 Monster_Controller에서 하는것을 원칙으로 한다.
+    public int NowPoint { get { return Instance._nowPoint; } set { Instance._nowPoint = value; } }
+    public int ThisWaveNum { get { return Instance._thiswavenum; } set { Instance._thiswavenum = value; } }
+    public int ThisWaveRegen { get { return Instance._thiswaveRegen; } set { Instance._thiswaveRegen = value; } }
+    // warn 값의 조정은 EndPoint에서 하는것을 원칙으로 한다.
+    public int Life { get { return Instance._life; } set { Instance._life = value; if (Instance._life <= 0) { Instance.GameOver(); } Instance._uIManager.PointUpdate(); } }
+    public int MonsterHP { get { return Instance._monsterHP; } set { Instance._monsterHP = value; } }
+    public Vector3[] Direction { get { return Instance._direction; }  }
 
-    public static List<List<GameObject>> Map = new List<List<GameObject>>();
+    public List<List<GameObject>> Map = new List<List<GameObject>>();
 
     // int _point = 0; == 죽인 적의 수 몬스터의 Dead상황에 ++해 줘야할 data; 
     // public int _point{}; == 죽인 적의 수 몬스터의 Dead상황에 ++해 줘야할 data; 

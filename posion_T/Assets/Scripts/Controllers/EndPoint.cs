@@ -13,7 +13,7 @@ public class EndPoint : MonoBehaviour
             {
                 GameManager.Sound.Play("Effect/life1");
 
-                GameManager.Life -= 1;
+                GameManager.Instance.Life -= 1;
 
 
             }

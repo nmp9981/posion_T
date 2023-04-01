@@ -18,17 +18,17 @@ public class SpeedAndMoney : MonoBehaviour
     public void UpgradeMoneyGet()
     {
 
-        if (GameManager.LV[(int)Define.LV.MoneyGet] < 4 && (GameManager.Money >= GameManager.UPGRATECOST[GameManager.LV[(int)Define.LV.MoneyGet]]))
+        if (GameManager.Instance.LV[(int)Define.LV.MoneyGet] < 4 && (GameManager.Instance.Money >= GameManager.UPGRATECOST[GameManager.Instance.LV[(int)Define.LV.MoneyGet]]))
         {
             GameManager.Sound.Play("Effect/levelup1");
 
-            GameManager.Money -= GameManager.UPGRATECOST[GameManager.LV[(int)Define.LV.MoneyGet]];
-            GameManager.LV[(int)Define.LV.MoneyGet] += 1;
+            GameManager.Instance.Money -= GameManager.UPGRATECOST[GameManager.Instance.LV[(int)Define.LV.MoneyGet]];
+            GameManager.Instance.LV[(int)Define.LV.MoneyGet] += 1;
 
             GameManager.UI.PointUpdate();
 
-            LVImage.GetComponent<Image>().sprite = GameManager.UI.LVImage[GameManager.LV[(int)Define.LV.MoneyGet]]; // 
-            ShowUpgradeMoneyText.text = $"{GameManager.UPGRATECOST[GameManager.LV[(int)Define.LV.MoneyGet]]}";
+            LVImage.GetComponent<Image>().sprite = GameManager.UI.LVImage[GameManager.Instance.LV[(int)Define.LV.MoneyGet]]; // 
+            ShowUpgradeMoneyText.text = $"{GameManager.UPGRATECOST[GameManager.Instance.LV[(int)Define.LV.MoneyGet]]}";
 
             gameObject.SetActive(false);
         }
@@ -36,17 +36,17 @@ public class SpeedAndMoney : MonoBehaviour
 
     public void UpgradeShootSpeed()
     {
-        if (GameManager.LV[(int)Define.LV.ShootSpeed] < 4 && (GameManager.Money >= GameManager.UPGRATECOST[GameManager.LV[(int)Define.LV.ShootSpeed]]))
+        if (GameManager.Instance.LV[(int)Define.LV.ShootSpeed] < 4 && (GameManager.Instance.Money >= GameManager.UPGRATECOST[GameManager.Instance.LV[(int)Define.LV.ShootSpeed]]))
         {
             GameManager.Sound.Play("Effect/levelup1");
 
-            GameManager.Money -= GameManager.UPGRATECOST[GameManager.LV[(int)Define.LV.ShootSpeed]];
-            GameManager.LV[(int)Define.LV.ShootSpeed] += 1;
+            GameManager.Instance.Money -= GameManager.UPGRATECOST[GameManager.Instance.LV[(int)Define.LV.ShootSpeed]];
+            GameManager.Instance.LV[(int)Define.LV.ShootSpeed] += 1;
 
             GameManager.UI.PointUpdate();
 
-            LVImage.GetComponent<Image>().sprite = GameManager.UI.LVImage[GameManager.LV[(int)Define.LV.ShootSpeed]]; // 
-            ShowUpgradeMoneyText.text = $"{GameManager.UPGRATECOST[GameManager.LV[(int)Define.LV.ShootSpeed]]}";
+            LVImage.GetComponent<Image>().sprite = GameManager.UI.LVImage[GameManager.Instance.LV[(int)Define.LV.ShootSpeed]]; // 
+            ShowUpgradeMoneyText.text = $"{GameManager.UPGRATECOST[GameManager.Instance.LV[(int)Define.LV.ShootSpeed]]}";
 
             gameObject.SetActive(false);
         }

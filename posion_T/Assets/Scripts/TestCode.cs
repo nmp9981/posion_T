@@ -16,7 +16,7 @@ public class TestCode : MonoBehaviour
     {
         try
         {
-            GameManager.StartHP = Int32.Parse(InputField.text);
+            GameManager.Instance.StartHP = Int32.Parse(InputField.text);
 
             Debug.Log($"StartHP {InputField.text}");
         }
@@ -29,7 +29,7 @@ public class TestCode : MonoBehaviour
     {
         try
         {
-            GameManager.WaveHPPlus = Int32.Parse(InputField.text);
+            GameManager.Instance.WaveHPPlus = Int32.Parse(InputField.text);
             Debug.Log($"WavetHP {InputField.text}");
 
         }

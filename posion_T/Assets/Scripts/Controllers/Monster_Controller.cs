@@ -35,7 +35,7 @@ public class Monster_Controller : MonoBehaviour
 
     public void beAttacked( Define.Property Property) //데미지, 투사체 속성
     {
-        float DMG = GameManager.DMGTABLE[GameManager.LV[(int)Property]];
+        float DMG = GameManager.DMGTABLE[GameManager.Instance.LV[(int)Property]];
         
 
         //속성 검사
@@ -104,8 +104,8 @@ public class Monster_Controller : MonoBehaviour
                     break;
 
             }
-            GameManager.Money += GameManager.Wave * 2;
-            GameManager.NowPoint += 1;
+            GameManager.Instance.Money += GameManager.Instance.Wave * 2;
+            GameManager.Instance.NowPoint += 1;
         }
         Destroy(this.gameObject);
     }
@@ -116,14 +116,14 @@ public class Monster_Controller : MonoBehaviour
         //Find는 모든 몬스터가 생성될 때마다 사용하기에는 좀 무거움 + 바뀌는 OBJ가 아님으로 여기에서 새로 찾을 이유가 x
         //Manager로 옮기는것이 합리적
 
-        direction = GameManager.Direction;
+        direction = GameManager.Instance.Direction;
 
     }
     void Start()
     {
         _bornproperty = _property;
-        HP = GameManager.StartHP + (GameManager.Wave - 1) * (GameManager.Wave - 1) * (GameManager.WaveHPPlus);
-        Debug.Log(HP);
+        HP = GameManager.Instance.StartHP + (GameManager.Instance.Wave - 1) * (GameManager.Instance.Wave - 1) * (GameManager.Instance.WaveHPPlus);
+        
 
     }
 

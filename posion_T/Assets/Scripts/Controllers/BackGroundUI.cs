@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 
 public class BackGroundUI : MonoBehaviour
 {
-
+    
     EventTrigger eventTrigger;
 
     // Start is called before the first frame update

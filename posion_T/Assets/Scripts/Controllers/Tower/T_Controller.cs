@@ -26,7 +26,7 @@ public class T_Controller : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _direction = GameManager.Direction;
+        _direction = GameManager.Instance.Direction;
         _deleteButton = transform.Find("Delete").gameObject;
         InAreaMonster = new List<Monster_Controller>();
         Projectile = Resources.Load<GameObject>($"Prefabs/Projectile/Projectile{(int)property}");
@@ -126,7 +126,7 @@ public class T_Controller : MonoBehaviour
                     go.GetComponent<Projectile_Controller>().setTarget(FindTarget(inRangeMonster).transform.position);
                     Destroy(go, 2f);
                 }
-                yield return new WaitForSecondsRealtime(GameManager.SHOOTSPEED[GameManager.LV[(int)Define.LV.ShootSpeed]]);
+                yield return new WaitForSecondsRealtime(GameManager.SHOOTSPEED[GameManager.Instance.LV[(int)Define.LV.ShootSpeed]]);
                 isDelay = false;
             }
             else

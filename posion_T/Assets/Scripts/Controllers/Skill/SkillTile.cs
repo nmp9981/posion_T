@@ -13,7 +13,7 @@ public class SkillTile : MonoBehaviour
     public void InstanceSkill(Define.Skill skill)// 위 함수는 Tile_Controller에 가는게 맞습니다
     {
 
-        Skill = Instantiate(GameManager.Skills[(int)skill]);
+        Skill = Instantiate(GameManager.Instance.Skills[(int)skill]);
         Skill.transform.parent = transform;
 
         Skill.transform.localPosition = new Vector3(0, 0, 0);
@@ -120,8 +120,8 @@ public class SkillTile : MonoBehaviour
     }
     IEnumerator ExistTime()
     {
-        Debug.Log($"LV[{(int)Myskill + 5}] : {GameManager.LV[(int)Myskill + 5]} time: {GameManager.SKILLEXISTTIME[GameManager.LV[(int)Myskill + 5]]}");
-        yield return new WaitForSeconds(Myskill == Define.Skill.Explosion ? 0.4f : GameManager.SKILLEXISTTIME[GameManager.LV[(int)Myskill + 5]]);
+        Debug.Log($"LV[{(int)Myskill + 5}] : {GameManager.Instance.LV[(int)Myskill + 5]} time: {GameManager.SKILLEXISTTIME[GameManager.Instance.LV[(int)Myskill + 5]]}");
+        yield return new WaitForSeconds(Myskill == Define.Skill.Explosion ? 0.4f : GameManager.SKILLEXISTTIME[GameManager.Instance.LV[(int)Myskill + 5]]);
 
         Destroy(this.gameObject);
     }
