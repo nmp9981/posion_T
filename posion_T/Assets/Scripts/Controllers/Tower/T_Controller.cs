@@ -46,14 +46,6 @@ public class T_Controller : MonoBehaviour
         if (other.gameObject.tag == "Mob")
         {
             inRangeMonster.Add(other.gameObject);
-
-
-            //GameObject tempMob = other.gameObject;
-            //Monster_Controller M = other.gameObject.GetComponent<Monster_Controller>();
-            //InAreaMonster.Add(M);
-            //target = M.gameObject.transform.position;
-            //myTarget.GetComponent<Projectile_Controller>().setTarget((Vector3)tempMob.transform.position);
-            
         }
     }
 
@@ -82,24 +74,11 @@ public class T_Controller : MonoBehaviour
 
         FullDist = FullDist_x + FullDist_y + Mathf.Abs(GameObject.Find("StartPoint").transform.position.x - GameObject.Find("EndPoint").transform.position.x);
 
-        //int idx = 0;
-
         if (InAreaMonster.Count == 0)
         {
             target = this.transform.position;
             return target;
         }
-        /*
-        for (int i = 0; i < InAreaMonster.Count; i++)
-        {
-            mobDist = InAreaMonster[i].dist;//몬스터 이동 거리
-            if (FullDist - mobDist < closeDist)//더 작은 거리
-            {
-                idx = i;
-            }
-        }
-        */
-      
         //target = new Vector3(InAreaMonster[0].xpos, InAreaMonster[0].ypos, 0);//맨앞
         return target;
     }

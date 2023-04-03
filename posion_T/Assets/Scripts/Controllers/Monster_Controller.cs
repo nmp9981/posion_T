@@ -37,7 +37,6 @@ public class Monster_Controller : MonoBehaviour
     {
         float DMG = GameManager.DMGTABLE[GameManager.Instance.LV[(int)Property]];
         
-
         //속성 검사
         if ((this._property == Define.Property.Fire && Property == Define.Property.Water) ||
             ((this._property == Define.Property.Water && Property == Define.Property.Grass)) ||
@@ -123,10 +122,7 @@ public class Monster_Controller : MonoBehaviour
     {
         _bornproperty = _property;
         HP = GameManager.Instance.StartHP + (GameManager.Instance.Wave - 1) * (GameManager.Instance.Wave - 1) * (GameManager.Instance.WaveHPPlus);
-        
-
     }
-
     
     void ThisMove()
     {
@@ -134,18 +130,12 @@ public class Monster_Controller : MonoBehaviour
         ypos = this.gameObject.transform.position.y;
         this.transform.position = Vector3.MoveTowards(this.transform.position, direction[checkBox], this._speed);
         
-      
         this.dist += this._speed;
-
     }
-
     
     private void FixedUpdate()
     {
         LifeTime += Time.deltaTime;
         ThisMove();
     }
-
-
-
 }
